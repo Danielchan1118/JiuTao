@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>应用数据</title>
+
+<link href="/Public/Plugin/mta/style/css/gri.controls.css" rel="stylesheet" type="text/css">
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+<link href="/Public/Plugin/mta/style/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+<link href="/Public/youmi_admin/style/css/bui_css.css" rel="stylesheet">
+</head>
+<body>
+<div class="bodytitle"><div id="h_title">应用数据</div>
+<div class="margin_bottom">
+	<span class="span-right-space">
+		<input type="text" readonly="readonly" style="width: 200px" name="reservation" id="reservation" class="form-control" value="{$start_time|date='Y-m-d',###} - {$end_time|date='Y-m-d',###}" />
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+			   $('#reservation').daterangepicker(null, function(start, end, label) {
+				 console.log(start.toISOString(), end.toISOString(), label);
+			   });
+			});
+		</script>
+	</span>
+	</div>
+</div>
+
+<div class="subbox">  
+<div class="bui_content_b">
+  <div class="bui-content">
+		<div>
+			<span class="sub_title">
+				<div style="float: left;font-size: 16px; height: 30px;line-height: 30px; font-weight: bold; margin-right: 10px;">详细数据</div>
+			</span>
+			<span class="more_menu">
+			<form action="__URL__{$strUrl}" method="post" style="float:left;"> 
+				<input type="submit" value="导出Excel" class="change_back"/> 
+			</form>
+			<div style="clear:both;"></div>
+			</span>	
+		</div>
+		<div class="sub_content">
+			<div class="column cf">
+				<div id="table_list" class="gri_wrapper">
+					<table class="table table-bordered" style="margin-top:20px; ">
+						<colgroup span="5"><col class="gri_Date"><col class="gri_NewUser"><col class="gri_ActiveUser"><col class="gri_SessionNum"><col class="gri_TotalUser"></colgroup>
+						<thead>
+							<tr class="atim_tr">
+								<th>日期</th>
+								<th>激活量</th>
+								<th>活跃用户（含重复安装）</th>
+								<th>安装消耗金额</th>
+								<th>下载量</th>
+								<th>签到用户量</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name="datacount" id="vo">
+							<tr>
+								<td><?php echo $vo['times'][0]; ?></td>
+								<td><?php echo $vo['activeusercount'][0]['num']; ?></td>
+								<td><?php echo $vo['activecount'][0]['num']; ?></td>
+								<td><?php echo $vo['activatcount'][0]['money']; ?></td>
+								<td><?php echo $vo['user_count'][0]['num']; ?></td>
+								<td><?php echo $vo['newcouts'][0]['num']; ?></td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+			</div>                    		
+		</div>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$(".daterangepicker ").click(function(){
+			var shows = $(this).css("display");
+			if(shows == 'none'){
+				var datatimes = $("#reservation").val();
+				if(datatimes && typeof(datatimes)!="undefined"){
+					$.ajax({
+						type: 'POST',
+						url: "{:U('DataCount/Downloaddata')}",
+						data:{reservation:datatimes},
+						dataType:'json',
+						success:function(data){
+							var htmls = " ";
+							for(var i= 0; i<data.length; i++){
+								htmls+="<tr>";
+								htmls+="<td>"+data[i]['times']+"</td>";
+								htmls+="<td>"+data[i]['activeusercount'][0].num+"</td>";
+								htmls+="<td>"+data[i]['activecount'][0].num+"</td>";
+								htmls+="<td>"+data[i]['activatcount'][0].money+"</td>";
+								htmls+="<td>"+data[i]['user_count'][0].num+"</td>";
+								htmls+="<td>"+data[i]['newcouts'][0].num+"</td>";
+								htmls+="</tr>";
+							}
+							$("#times").val(datatimes);
+							$(".table-bordered tbody").html(htmls);
+							window.parent.adjustFrame();
+						}
+					}); 
+				}
+			}
+		});
+	});
+
+</script>
+
+</body>
+</html> 

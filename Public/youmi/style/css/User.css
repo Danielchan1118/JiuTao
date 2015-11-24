@@ -1,0 +1,68 @@
+@charset "utf-8";
+/*重置样式*/
+body,button,input,select,textarea{font:12px/1.125 "Simsun", "Arial Narrow", HELVETICA;}
+sub,sup{line-height:0;}
+body,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,th,td,p,blockquote,pre,form,fieldset,legend,input,button,textarea,hr{margin:0; padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+li{list-style:none;}
+fieldset,img{border:0;}
+input,textarea{outline-style:none;}
+textarea{resize:none}
+address,caption,cite,code,dfn,em,i,th,var{font-style:normal;font-weight:normal;}
+legend{color:#000;}
+abbr,acronym {border:0;font-variant:normal;}
+a:link,a:visited{text-decoration:none;outline:none;color:#0a8cd2;}
+a:hover{text-decoration:underline;}
+.clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{zoom:1;}
+.none{display:none;}
+
+.B_reg{background:url(../image/reg_bg_x.jpg) repeat-x 0 top #dceaf5;}
+.B_reg .TX_reg{ background:url(../image/reg_bg.jpg) no-repeat top center;}
+/*头*/
+.B_reg .reg_hd{margin:0 auto;width:900px;height:80px;color:#fff;border-bottom:2px solid #60a722;}
+.B_reg .reg_hd a{color:#fff;}
+.B_reg .reg_hd .top_lnk{padding-top:55px;text-align:right;}
+.B_reg .reg_hd .top_lnk a{margin:0 8px;}
+
+/*主内容区域*/
+.B_reg .reg_main{margin:0 auto;width:900px;background:#fafafa;min-height:440px;_height:440px;}
+.B_reg .reg_main .reg_info{padding-top:10px;background:url(../image/reg_line.png) repeat-y 632px 0;}
+/*tab*/
+.B_reg .reg_mail{background:url(../image/reg_mail.png) no-repeat 0 0;}
+.B_reg .main_title{padding:18px 0 0;}
+.B_reg .main_title .main_tab{border-bottom:1px solid #D9D9D9;height:39px;padding-left:20px;background:url(../image/bg_tab.png) repeat-x 0 0;}
+.B_reg .main_title .main_tab a{position:relative;float:left;margin-right:12px;border:1px solid #d9d9d9;padding:0 35px;font-size:14px;line-height:38px; color:#323232;}
+.B_reg .main_title .main_tab a:hover{background:url(../image/bg_tab.png) repeat-x 0 -62px;color:#fff;text-decoration:none;}
+.B_reg .main_title .main_tab .current,.B_reg .main_title .main_tab a.current:hover{background:#fafafa;border-bottom-color:#fafafa; cursor:default;color:#323232; text-decoration:none;*top:1px;}
+/*信息录入*/
+.B_reg .reg_form{position:relative;float: left;width:600px;margin: 30px 0 0 30px;_display: inline;}
+.B_reg .reg_form .info_list{margin:0 0 30px;position:relative;}
+.B_reg .reg_form .tit{float:left;width:160px;font-size:14px;line-height:30px;text-align:right;}
+.B_reg .reg_form .tit i{padding-right:4px;color:#f00;font:'simsun';}
+.B_reg .reg_form .ipt{margin-left:160px;}
+.B_reg .reg_ipt{width:195px;height:30px;padding:0 0 0 5px;_padding:8px 0 0 5px;_height:22px;font-size:14px;border:1px solid #ccc;border-radius:2px;box-shadow:1px 1px 1px 0 #eaeaea inset;vertical-align:middle;line-height:30px;_line-height:1em;}
+/*激活码*/
+.B_reg .active .reg_ipt{width:62px;}
+.B_reg .active .btn_active{height:30px;padding-left:8px;line-height:29px;display:inline-block; vertical-align:middle;background:url(../image/reg_btn.png) no-repeat 0 -240px;color:#333;text-decoration:none;cursor:pointer;}
+.B_reg .active .btn_active span{background:url(../image/reg_btn.png) no-repeat right -270px;height:30px;line-height:29px;display:inline-block;padding-right:8px;}
+/*验证码*/
+.B_reg .reg_form .ver_code .reg_ipt{width:48px;}
+.reg_form .info_submit{padding-top:17px;}
+.B_reg .reg_form .verify{width:300px;padding:16px 0 40px;}
+.B_reg .reg_form .agreement{padding-bottom:16px;}
+.B_reg .reg_form .ver_pic img {vertical-align: middle;margin: 0 4px;}
+/*提交按钮*/
+.B_reg .btn_sub,.B_reg .btn_sub span{display:inline-block;*display:inline;zoom:1;height:42px;line-height:42px;font-size:14px;background-image:url(../image/reg_btn.png);background-repeat:no-repeat;}
+.B_reg .btn_sub{padding-left:68px;color:#fff; }
+.B_reg .btn_sub span{padding-right:68px;background-position:right -60px;color:#fff;}
+.B_reg .btn_sub:hover{background-position:0 -120px;text-decoration:none;cursor:pointer;}
+.B_reg .btn_sub:hover span{background-position:right -180px;color:#fff;}
+/*右侧边栏*/
+.B_reg .reg_aside{float:right;margin:30px 30px 0 0;width:210px;font-size:14px;display:inline;}
+.B_reg .reg_aside .have_ac{margin-bottom:10px;border-bottom:1px #CCCCCC;}
+.B_reg .reg_aside p{padding-bottom:10px;}
+/* footer */
+.B_reg .reg_foot{margin:0 auto;border-top:1px solid #e6e6e6;width:870px;padding:15px 0 15px 30px;background:#fafafa;color:#808080;}
+.B_reg .reg_foot p{padding-bottom:9px;}
+.B_reg .reg_foot a{padding-right:12px;}

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0" /> 
+<title> 添加内容</title>
+<!--
+<script src="__PUBLIC__/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/Public/Plugin/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/Public/Plugin/ueditor/ueditor.all.min.js"> </script>
+-->
+</head>
+<style type="text/css">
+.art_bot{margin-bottom:31px;font-size: 20px;}
+
+</style>
+<body>
+	<!--<form action="{:U('Admin/Article/articleAdd?id='.$artinfo['aid'])}" method="post" id="from_id">
+		<table cellspacing="0" cellpadding="0">
+			<tr>
+				<td>标题名称：</td>
+				<td><input type="text" name="title" value="{$find_pay.title}" id="title" /><span style="color:red; font-weight:bold;">&nbsp;&nbsp;注：标题长度不能超过13中文字符！</span></td>
+			</tr>
+			<tr>
+				<td>外部链接：</td>
+				<td><input type="text" name="web_link" value="{$find_pay.web_link}" id="link" /></td>
+			</tr>
+			<tr>
+				<td>作者：</td><td><input type="text" name="author" value="{$artinfo.author}" id="author" /></td>
+			</tr>
+			<tr>
+				<td>排序：</td>
+				<td><input type="text" name="sort" value="{$artinfo.sort}" /><td>
+			</tr>
+			<tr>
+				<td>是否显示：</td>
+				<td>
+					<input type="radio" name="is_on" value="0" checked />显示
+					<input type="radio" name="is_on" value="1" <eq name="artinfo.status" value="1">checked="checked"</eq> />不显示
+					<input type='hidden' id='conInfo' value='{$artinfo.content}'/>
+				</td>
+			</tr>
+			<tr>
+				<td>允许评论：</td>
+				<td>
+					<input type="radio" name="comment" value="0" checked />开启
+					<input type="radio" name="comment" value="1" <eq name="artinfo.is_comment" value="1">checked="checked"</eq> />关闭
+				</td>
+			</tr>
+			<tr><td>内容：</td><script id="editor" type="text/plain" style="width:1024px;height:500px;"></script></td></tr>
+			<tr><td>&nbsp;&nbsp;</td><td><input type="submit" name="dosubmit" value="提交" ></td></tr>
+		</table>
+	</form>-->
+	<div class="art_bot"><span>用户名</span>:<span>{$find_pay.nickname}</span>&nbsp;&nbsp;&nbsp;<span>用户头像</span>:<span><img style="width: 60px;height:60px;border-radius: 34px;vertical-align: middle;" src="{$find_pay.img_url}"/></span></div>
+	<div class="art_bot art_img"><span>上传图片</span>:<span>
+	<?php for($i=0;$i<count($arr['image']);$i++){?>
+			<img style="margin-right:10px;width: 150px;" src="<?php echo $arr['image'][$i]?>" />
+	<?php  }?></span>
+	</div>
+	<div class="art_bot"><span>产品类型</span>:<span>{$find_pay.name}</span></div>
+	<div class="art_bot"><span>标题名称</span>：<span>{$find_pay.title}</span></div>
+	<div class="art_bot">内容：<br/><text>{$find_pay.content}</text></div>
+	<div class="art_bot">交易方式:<if condition="$find_pay.pay_type eq 1"> 出售
+									 <elseif condition="$find_pay.pay_type eq 2"/>交换
+									 <else /> 免费赠送
+								</if></div>
+	<div class="art_bot">订单状态:<if condition="$find_pay.pay_type eq 1"> 在售
+									 <elseif condition="$find_pay.pay_type eq 2"/>已换
+									 <else /> 已过期
+								</if></div>
+	<div class="art_bot">评论数量:{$find_pay.comment_total}</div>
+	<div class="art_bot">收藏数量:{$find_pay.point_like}</div>
+	<div class="art_bot">评论时间:{$vo.add_time|date="Y-m-d",###}</div>
+	
+	
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+
+	$(function (){
+	
+	$('.art_img img').each(function(i,e){
+		var w = parseInt($(this).css('width'));
+		var h = parseInt($(this).css('height'));
+		var rate = h/w;
+		var new_w = Math.floor(screen.availWidth * 0.12);
+		$(this).css({"width":new_w+'px'});
+		//var new_h = Math.floor(new_w * h/w);
+		$(this).css({"height":new_w+'px'});
+	});
+		var ueditor = UE.getEditor('editor');
+		ueditor.addListener("ready", function () {
+	        // editor准备好之后才可以使用
+	        var artInfo = $("#conInfo").val();
+			if(artInfo){
+				ueditor.setContent(artInfo);	 
+			}		
+		});
+	});
+
+	$('#from_id').submit(function(){
+    	var title_id = $("#title").val();
+    	if(title_id == ""){
+    		alert('请填写完整信息再进行提交!');
+    		return false;
+    	}
+    });
+    
+
+</script>

@@ -1,0 +1,1 @@
+s:244:"SELECT p.*,LLTD(p.lat,p.lon,113.909462,22.543646) as distance,m.nickname,m.img_url FROM oh_pay p LEFT JOIN oh_member as m ON p.uid=m.uid  WHERE (  0 < LLTD(p.lat,p.lon,113.909462,22.543646) AND LLTD(p.lat,p.lon,113.909462,22.543646) <= 10000 ) ";

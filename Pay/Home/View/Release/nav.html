@@ -1,0 +1,28 @@
+	<nav class="ease2">
+		<ul>
+			<li class="blank-head"><a href="javascript:void(0);"></a></li>
+			<li class="area">
+				<a href="javascript:void(0);">
+					<i class="nav-icons"></i>
+					<div id="college"><span>{$cityname}</span></div>
+				</a>
+			</li>		
+			<volist name="catList" id="vo">
+			<li class="catg">
+				<a href="{:U('/Goods/goodsList?type=par&id='.$vo['id'])}" title="{$vo.name}">
+					<i class="nav-icons"><img src="{$vo.little_img_url}"/></i>
+					<h3>{$vo.name}</h3>
+				</a>
+				<neq name="vo.sub" value="">
+				<div class="sub-nav">
+					<span>
+						<volist name="vo.sub" id="vs">
+						<a href="{:U('/Goods/goodsList?id='.$vs['id'])}">{$vs.name}</a>
+						</volist>
+					</span>
+				</div>
+				</neq>
+			</li>
+			</volist>
+		</ul>
+	</nav>

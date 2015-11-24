@@ -1,0 +1,98 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" />
+	<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/Public/Plugin/mta/style/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+	<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+	<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+  <title>添加广告管理</title>
+</head>
+<body>
+<div class="bodytitle">
+  <div id="h_title">添加广告管理</div>
+</div>
+
+<div class="subbox">  
+  <div class="bui_content_b">
+    <div class="bui-content"> 
+      <form action="{:U('AdManage/AdMan?id='.$adsInfo['id'])}" method="post" id="myform" enctype="multipart/form-data">
+    <table cellspacing="0" class="table table-bordered table-tr">
+      <tr>
+        <td >广告名称：</td>
+        <td class="y-bg"><input type="text" class="input-text input-back-bor" name="ads_name" id="name" value="{$adsInfo.ads_name}"  ></td>
+      </tr>
+
+      <tr>
+        <td >应用ID：</td>
+        <td class="y-bg"><input type="text" class="input-text input-back-bor" name="url" value="{$adsInfo.url}" id="url"  ></td>
+      </tr>
+
+      <tr>
+        <td>显示：</td>
+        <td><input name="is_show" value="1"  type="radio" <neq name="adsInfo.is_show" value="2" > checked="checked" </neq> />&nbsp;显示&nbsp;&nbsp;<input name="is_show" value="2" type="radio" <eq name="adsInfo.is_show" value="2" > checked="checked" </eq> >&nbsp;不显示
+        </td>
+      </tr>
+      <tr>
+        <td>类型:</td>
+        <td>
+          <select name="type_name" class="input-back-bor">
+            <volist name="typeList" id="vo">
+              <option value ="{$vo.id}" <eq name="adsInfo.type_id" value="$vo['id']">selected="selected"</eq> >{$vo.ads_type}</option>
+            </volist>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>图片</td>
+        <td><input type='file'  name='image'  id="photo1" class="input-text"/><img src="{$adsInfo.images}" width="" height="" /><input name="image1" type="hidden" value="{$adsInfo.images}"><span style="color:red;">上传的图片的大小是620*300</span><br/>
+        </td>
+      </tr>
+
+      <tr>
+        <td>时间：</td>
+        <td >结束时间：<input type="text" style="width: 320px" name="reservation" id="reservationtime" class="form-control" value="{$adsInfo.start_time|date='Y-m-d h:i',###} - {$adsInfo.end_time|date='Y-m-d h:i',###} "  class="span4"/>
+			<script type="text/javascript">
+				$(document).ready(function() {
+				  $('#reservationtime').daterangepicker({
+					timePicker: true,
+					timePickerIncrement: 30,
+					format: 'YYYY-MM-DD hh:mm'
+				  }, 
+				  function(start, end, label) {
+					console.log(start.toISOString(), end.toISOString(), label);
+				  });
+			   });
+			</script>
+		</td>
+      </tr>
+	  <tr>
+        <td >排序：</td>
+        <td class="y-bg"><input type="text" class="input-text input-back-bor" name="order_id" value="{$adsInfo.order_id}" id="order_id"  ></td>
+      </tr>
+    </table>
+    <input type="submit" value="提交" class="button">
+  </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+  <script type="text/javascript">
+     $("#myform").submit(function(){
+      var user = $("#name").val();
+
+      if(user ==''){
+        alert('广告名称不能为空');
+        return false;
+      }
+
+     });
+	 
+	 $("#addAds").click(function(){
+   		window.location.href="{:U('AdManage/AdMan')}";
+	});
+  </script>

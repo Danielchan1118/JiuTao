@@ -1,0 +1,534 @@
+<include file="head"  />
+		<title>{$shop_list.title}</title>
+		<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/>  
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/index.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/detail.css"/>
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js"></script>		
+			
+		<script type="text/javascript" >	
+		window.url = '{$url}';
+		lxfEndtime();
+			function lxfEndtime() {
+					$(".lxftime").each(function () {
+						var endtime = new Date($(this).attr("endtime")).getTime(); //取结束日期(毫秒值)
+						var nowtime = new Date().getTime(); //今天的日期(毫秒值)服务器时间
+						var seconds = ((endtime - nowtime)/1000); //还有多久(秒)
+						var CDay = Math.floor(seconds / 60 / 60 / 24);
+						var CHour = Math.floor(seconds / 60 / 60 % 24);
+						var CMinute = Math.floor(seconds / 60 % 60); 
+						var CSecond = Math.floor(seconds % 60); //"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+						var CMSecond = Math.floor(seconds*10%10);// 计算100毫秒
+
+						if (endtime <= nowtime) {
+							$(this).html("已过期"); //如果结束日期小于当前日期就提示过期啦
+						} else {
+							$(this).html("<span class='num_bold'>"+CDay + "</span>天<span class='num_bold'>" + (CHour<10?"0"+CHour:CHour) + "</span>小时<span class='num_bold'>" + (CMinute<10?"0"+CMinute:CMinute) + "</span>分<span class='num_bold'>" + (CSecond<10?"0"+CSecond:CSecond) + "."+CMSecond+"</span>秒"); //输出有天数的数据
+							//当前时间变化
+							$(this).attr("nowtime", zhtime(nowtime+100));
+						}
+					});
+					setTimeout("lxfEndtime()", 100);
+			}
+			//js时间戳格式转05/20/2014 20:54:40
+			function zhtime(needtime) {
+				var oks = new Date(needtime);
+				var year = oks.getFullYear();
+				var month = oks.getMonth() + 1;
+				var date = oks.getDate();
+				var hour = oks.getHours();
+				var minute = oks.getMinutes();
+				var second = oks.getSeconds();
+				var msecond=oks.getMilliseconds()
+				return month + '/' + date + '/' + year + ' ' + hour + ':' + minute + ':' + second+'.'+msecond;
+			}
+			//时间倒计时end
+	   </script>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/rrshare.css"/>    
+	</head>
+<body>
+	<!--左侧分类展示start  固定-->
+	<include file="nav" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	<div class="container">
+		<div class="main center clearfix">
+			<div class="ershou-details">
+				<div class="ershou-photos-wr">
+				<if condition="$userinfo.name neq null">
+					<a class="ershou-favorite" href="javascript:void(0);" <if condition="$collect_stat eq 1">style="background-image:url('__PUBLIC__/Home/style/image/heart_full.png');"<else/>style="background-image:url('__PUBLIC__/Home/style/image/heart.png');"</if>" onclick="favorites();">{$shop_list.point_like}</a>
+				<else/>
+					<a class="ershou-favorite" href="javascript:alert('亲，您还没有登入哦！');" <if condition="$collect_stat eq 1">style="background-image:url('__PUBLIC__/Home/style/image/heart_full.png');"<else/>style="background-image:url('__PUBLIC__/Home/style/image/heart.png');"</if>" onclick="favorites();">{$shop_list.point_like}</a>				
+				</if>
+					<a class="bigger-photo" title="点开看大图" href="http://ershou.u.qiniudn.com/iOS_1419071350_55887_1?imageView2/5/w/800/h/800" target="_blank">
+					<?php for($i=0;$i<count($arr['image']);$i++){?>
+						<img class="bigger" src="<?php echo $arr['image'][$i]?>" />
+					<?php  }?>
+						<!--<img class="bigger" src="{$shop_list.point_like}" alt="出日版5s16g和32g">-->
+					</a>
+					<div class="ershou-photo-slide">
+					<?php for($i=0;$i<count($arr['image']);$i++){?>
+						<div class="ershou-small-photos">
+							<img class="small cur" src="<?php echo $arr['image'][$i]?>" alt="出日版5s16g和32g" />
+						
+						</div> 
+					<?php  }?>
+					</div>
+					<div class="ershou-photo-slide-layer"></div>
+				</div>
+				<if condition="$pay_type eq 4">
+				<div class="ershou-info">
+					<div class="ershou-hd">
+						<h2 class="ershou-title">{$shop_list.title}</h2>
+						<div style="z-index: 9; margin-bottom: 0;" id="now_price" >
+							<span style="margin-left: 20px;margin-right: 27px; color: #858E8F; text-decoration: none;">当前价</span>
+							<span style="color: #d91615;">
+								<span style="font-size: 26px;font-weight: 700;" id="all_price" att="{$shop_list.current_price_prc}">{$shop_list.current_price_prc}</span>
+								<span style="font-weight: 700;margin: 0 3px 0 -5px;font-family: Microsoft YaHei ;">&nbsp;&nbsp;元</span>
+							</span>
+						</div>
+						<div style="margin: 5px 0px 10px; position: relative;">
+							<span style="margin-left: 20px; margin-right: 27px; color: #858E8F; text-decoration: none;">距结束</span>
+							<span class="lxftime" nowtime="" endtime="{$shop_list.period_time}" ></span><!--endtime是变量-->
+						</div>
+						<div style="font-size:20px; color:#d91615; font-weight:bold; text-align:center; " id="jiandi_auction">
+						
+						
+						<?php if($username == null){?>
+							<img src='__PUBLIC__/Home/style/image/login_aut.png' alt='人人分享' class='bids_button'/>
+						<?php }else{?>
+							<?php if($member_uid == $username){?>
+								<img src='__PUBLIC__/Home/style/image/end_bids_button.png' alt='人人分享' class='bids_button'/>
+							<?php }else{?>
+								<?php if($shop_list['a_name'] == $username){?>
+									<img src='__PUBLIC__/Home/style/image/end_bids_button.png' alt='人人分享' class='bids_button'/>
+								<?php }else{?>
+									<img src='__PUBLIC__/Home/style/image/start_bids_button.png' alt='人人分享' class='bids_button' id='click_auction'/>
+								<?php }?>
+							<?php }?>
+						<?php }?>
+						</div>
+					</div>
+					<ul class="ershou-detail">
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>起拍价格</span></div>
+							<div class="value"><span>{$shop_list.starting_price}元</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>加价幅度</span></div>
+							<div class="value" id="add_pricle" attr="{$shop_list.markups}"><span>{$shop_list.markups}元/次</span></div>
+						</li>
+						<li class="ershou-place-bids" id="count_num">
+							<div class="name_bids"><span>出价人数</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.count_num}人</span></div>
+						</li>
+						<li class="ershou-place-bids" id="bids_num">
+							<div class="name_bids"><span>出价次数</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.bids_num}次</span></div>
+						</li>
+						<div style="clear:both;"></div>
+						<li class="ershou-seller">					
+							<div class="name_bids"><span>卖家</span></div>
+							<div class="value">
+								<span>&nbsp;<if condition="$shop_list.nickname eq ''">无<else/>{$shop_list.nickname}</if></span>
+							</div>
+						</li>							
+						<if condition="$shop_list.phone neq null">
+							<li class="ershou-tel">
+								<div class="name_bids"><span>手机</span></div>
+								<div class="value"><span>&nbsp;{$shop_list.phone}</span></div>
+							</li>
+						</if>
+						<if condition="$shop_list.qq neq null">
+						<li class="ershou-phone">
+							<div class="name_bids"><span>QQ</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.qq}</span></div>
+						</li>
+						</if>
+						<if condition="$shop_list.weixin neq null">
+						<li class="ershou-phone">
+							<div class="name_bids"><span>微信</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.weixin}</span></div>
+						</li>
+						</if>
+						<li class="ershou-place">							
+							<div class="name_bids"><span>&nbsp;交易地点</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.location}</span></div>
+						</li>
+						<li class="ershou-place">							
+							<div class="name_bids"><span><if condition="$shop_list.auction_due_time eq 2">&nbsp;最新出价人<else/>&nbsp;最终出价者</if></span></div>
+							<div class="value new_Bidders"><span>&nbsp;</span></div>
+						</li>
+						<div style="clear:both;"></div>
+					</ul>
+					<!--<a name="xn_share" class="hidden" onclick="shareClick()" href="javascript:void(0);"><span class="xn_share_wrapper xn_share_button_small"></span></a>
+					<a class="xn_share_bids" onclick="shareClick()" href="javascript:void(0);">
+						<img src="__PUBLIC__/Home/style/image/renrenshare.png" alt="人人分享">
+					</a>-->
+					<div style="margin-left:20px;">分享到：<div class="bdsharebuttonbox"><a class="bds_more" href="#" data-cmd="more"></a><a title="分享到QQ空间" class="bds_qzone" href="#" data-cmd="qzone"></a>
+						<a title="分享到新浪微博" class="bds_tsina" href="#" data-cmd="tsina"></a><a title="分享到腾讯微博" class="bds_tqq" href="#" data-cmd="tqq"></a>
+						<a title="分享到人人网" class="bds_renren" href="#" data-cmd="renren"></a><a title="分享到微信" class="bds_weixin" href="#" data-cmd="weixin"></a>
+					</div></div>
+					<input type="hidden" id="con_id" value="{$shop_list.id}">
+					<script type="text/javascript">
+						function shareClick() {
+							var title = $(".ershou-title").text(),
+							description = $("#user_cmt").text(),
+							pic = $(".bigger").attr('src');
+							var rrShareParam = {
+								resourceUrl : '',	//分享的资源Url
+								srcUrl : '',	//分享的资源来源Url,默认为header中的Referer,如果分享失败可以调整此值为resourceUrl试试
+								pic : pic,		//分享的主题图片Url
+								title : title,		//分享的标题
+								description : description	//分享的详细描述
+							};
+							rrShareOnclick(rrShareParam);
+						}
+					</script>
+				</div>
+				<else/>
+				<div class="ershou-info">
+					<div class="ershou-hd">
+						<h2 class="ershou-title">{$shop_list.title}</h2>
+						<div class="ershou-price discount">
+							<span>{$shop_list.real_price}</span>
+							<span style="text-decoration:line-through;color:gray;margin-left:15px;font-size:22px;">￥{$shop_list.pay_price}</span>		
+						</div>					
+					</div>
+					<ul class="ershou-detail">
+						<li class="ershou-place">
+							<div class="name_bids"><span>交易地点</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.location}</span></div>
+						</li>
+						<li class="ershou-seller">
+							<div class="name_bids"><span>卖家</span></div>
+							<div class="value">
+								<span>&nbsp;{$shop_list.nickname}</span>
+							</div>
+						</li>
+						<if condition="$shop_list.phone neq null">
+							<li class="ershou-tel">
+								<div class="name_bids"><span>手机</span></div>
+								<div class="value"><span>&nbsp;{$shop_list.phone}</span></div>
+							</li>
+						</if>
+						<if condition="$shop_list.qq neq null">
+						<li class="ershou-phone">
+							<div class="name_bids"><span>QQ</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.qq}</span></div>
+						</li>
+						</if>
+						<if condition="$shop_list.weixin neq null">
+						<li class="ershou-phone">
+							<div class="name_bids"><span>微信</span></div>
+							<div class="value"><span>&nbsp;{$shop_list.weixin}</span></div>
+						</li>
+						</if>
+						<li class="ershou-time">
+							<div class="name_bids"><span>发布时间</span></div>
+							<div class="value">
+							<span class="real-time">&nbsp;{$shop_list.dis_time}</span></div>
+						</li>
+					</ul>
+					
+					<input type="hidden" id="con_id" value="{$shop_list.id}">
+					<a name="xn_share" class="hidden" onclick="shareClick()" href="javascript:void(0);"><span class="xn_share_wrapper xn_share_button_small"></span></a>
+					<div style="margin-left:20px;">分享到：<div class="bdsharebuttonbox"><a class="bds_more" href="#" data-cmd="more"></a><a title="分享到QQ空间" class="bds_qzone" href="#" data-cmd="qzone"></a>
+						<a title="分享到新浪微博" class="bds_tsina" href="#" data-cmd="tsina"></a><a title="分享到腾讯微博" class="bds_tqq" href="#" data-cmd="tqq"></a>
+						<a title="分享到人人网" class="bds_renren" href="#" data-cmd="renren"></a><a title="分享到微信" class="bds_weixin" href="#" data-cmd="weixin"></a>
+					</div></div>
+					<script type="text/javascript">
+						function shareClick() {
+							var title = $(".ershou-title").text(),
+							description = $("#user_cmt").text(),
+							pic = $(".bigger").attr('src');
+							var rrShareParam = {
+								resourceUrl : '',	//分享的资源Url
+								srcUrl : '',	//分享的资源来源Url,默认为header中的Referer,如果分享失败可以调整此值为resourceUrl试试
+								pic : pic,		//分享的主题图片Url
+								title : title,		//分享的标题
+								description : description	//分享的详细描述
+							};
+							rrShareOnclick(rrShareParam);
+						}
+					</script>
+				</div>
+				</if>
+			</div>
+			<div class="ershou-desc">
+				<div class="desc clearfix">
+					<img id="user_ph" src="{$shop_list.img_url}" alt="头像">
+					<span id="user_cmt">{$shop_list.content}<br></span>
+				</div>
+			</div>
+			<div class="comments">
+			<div class="comments-title">评论</div>
+				<div class="comments-wr">
+					<div class="comment-wr">
+					<div class="comment_sun">
+						<volist name="comment_list" id="vo">
+							<div class="comment">
+								<img class="avatar" src="{$vo.img_url}" alt="头像">
+								<div class="commentator" >{$vo.nickname}</div>
+								<p class="comment">{$vo.content}</p>
+								<div class="man">
+								<if condition="$userinfo.name neq null">
+									<a class="rpl return_pl" href="javascript:void(0);" data="{$vo.nickname}"><if condition="$userinfo.name neq null">回复</if></a>
+								<else/>
+									<a class="rpl return_pl" href="javascript:void(0);"><if condition="$userinfo.name neq null">回复</if></a>
+								</if>
+									<!-- <a class="del" href="javascript:void(0);">#1</a> -->
+								</div>
+							
+							</div>
+						</volist>
+					</div>
+						<div class="post-comment clearfix">
+							<input id="goods_id" type="hidden" value="{$shop_list.id}">
+							<img class="avatar" src="__PUBLIC__/Home/style/image/avatar-unlogin.png" alt="头像">
+							<!--<div class="commenting-unlogin clearfix">
+								<div class="comment-input-wr-wr">
+									<div class="comment-input-wr">
+										<textarea class="comment-input" name="comment-input" id="comment" style="color: rgb(133, 141, 142);"></textarea>
+									</div>
+								</div>
+								
+								<button class="sub-comment" id="login_show" type="button">登入</button>
+								
+							     
+							</div>-->
+							<if condition="$userinfo.name eq null">
+								<div class="commenting-unlogin clearfix">
+									<div class="comment-input-wr-wr">
+										<div class="comment-input-wr">
+											<span class="tips">评论总要登录留个名吧</span>
+										</div>
+									</div>
+									<button class="comment-login" data-type="l">登录</button>
+								</div>
+							<else/>
+								<div class="commenting-unlogin clearfix">
+								<div class="comment-input-wr-wr">
+									<div class="comment-input-wr">
+										<textarea class="comment-input" name="comment-input" id="comment" style="color: rgb(133, 141, 142);"></textarea>
+									</div>
+								</div>
+								
+								<button class="sub-comment" id="add_comment" type="button">登入</button>
+								
+							     
+							</div>
+							</if>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="concerned-goods">
+				<div class="concerned-title">相关商品</div>
+				<div class="goods-list">
+					<ul class="clearfix">
+						<volist name="about_shop" id="vol">
+						<li>						
+							<a href="{:U('Home/Goods/goodsDetail?id='.$vol['id'])}" title="{$vol.title}">
+								<img src="{$www}{$vol.image_url}" alt="surface rt 32G">
+							</a>
+						</li>
+						</volist>			
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>	
+<input type="hidden" value="{$userinfo.name}" id="user_info_name">
+<input type="hidden" value="{$userinfo.head_img_url}" id="user_info_url">
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	
+
+<script type="text/javascript">	
+window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"32"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>	
+
+<script type="text/javascript">	
+
+$(function(){
+//添加评论
+/*var  datas = {
+	'user_info':"{$username}",
+	'head_img':"{$username}",
+	'nickname':"{$shop_list.username}"
+};
+	if(datas.user_info == datas.nickname || datas.user_info == ''){
+		var htmlss="<img src='__PUBLIC__/Home/style/image/end_bids_button.png' alt='人人分享' class='bids_button'/>";
+		$("#jiandi_auction").html(htmlss);
+	}else if(datas.user_info != datas.nickname || datas.user_info != ''){
+		var htmlss="<img src='__PUBLIC__/Home/style/image/start_bids_button.png' alt='人人分享' class='bids_button' id='click_auction'/>";
+		$("#jiandi_auction").html(htmlss);
+	}*/
+	var  datas = {
+	'user_info':"{$username}",
+	'user_name':"{$userinfo}",
+	'nickname':"{$shop_list.username}"
+	};
+	var pay_id = $("#con_id").val();
+	$.ajax({
+			type : "get",
+			url : "{:U('Goods/ajax_auction')}",
+			data : {pay_id:pay_id},
+			success:function(data){    // login_aut
+					if(data.user_info==null){
+						var htmlsss="<img src='__PUBLIC__/Home/style/image/login_aut.png'  class='bids_button'/>";
+						
+						var news = "<span>&nbsp;"+data.a_nick+"</span>";
+						$(".new_Bidders").html(news);
+						$("#jiandi_auction").html(htmlsss);
+					}else{
+					if(data.member_uid == data.user_info){
+						var htmlsss="<img src='__PUBLIC__/Home/style/image/end_bids_button.png'  class='bids_button'/>";
+							var news = "<span>&nbsp;"+data.a_nick+"</span>";
+							$(".new_Bidders").html(news);
+							$("#jiandi_auction").html(htmlsss);
+					}else{
+						if(  data.a_name == data.user_info ){
+							var htmlsss="<img src='__PUBLIC__/Home/style/image/end_bids_button.png'  class='bids_button'/>";
+							var news = "<span>&nbsp;"+data.a_nick+"</span>";
+							$(".new_Bidders").html(news);
+							$("#jiandi_auction").html(htmlsss);
+						}else{
+							var htmlsss="<img src='__PUBLIC__/Home/style/image/start_bids_button.png'  class='bids_button' id='click_auction_con'/>";
+							if(data.a_nick==null){
+								var news = "<span>&nbsp;无</span>";
+							}else{
+								var news = "<span>&nbsp;"+data.a_nick+"</span>";
+							}
+							$(".new_Bidders").html(news);
+							$("#jiandi_auction").html(htmlsss);
+						}
+					}
+						
+						
+					} 	
+					
+					$("#click_auction_con").click(function(){
+					var add_price = $("#add_pricle").attr("attr");
+					var all_price = $("#all_price").attr("att");
+					//var window.adds = data.
+					var cat_id = $("#con_id").val();
+					$.ajax({
+						type : "get",
+						url : "{:U('Goods/click_auction')}",
+						data : {add_price:add_price,cat_id:cat_id,all_price:all_price},
+						success:function(data){
+						  $html = '';
+							if(data.biddingname == data.user_info){
+								var htmlss="<img src='__PUBLIC__/Home/style/image/end_bids_button.png' class='bids_button'/>";
+								 
+								$("#jiandi_auction").html(htmlss);
+							}else{
+								var htmlss="<img src='__PUBLIC__/Home/style/image/start_bids_button.png'  class='bids_button' id='click_auction'/>";
+								
+								$("#jiandi_auction").html(htmlss);
+							}	
+							var html = '';
+							html += "<div>";
+							html+= "<span style='margin-left: 20px;margin-right: 27px; color: #858E8F; text-decoration: none;'>当前价</span>";
+							html+= "<span style='color: #d91615;'>";
+							html+= "<span style='font-size: 26px;font-weight: 700;' id='all_price' att='"+data.current_price_prc+"'>"+data.current_price_prc+"</span>";
+							html+= "<span style='font-weight: 700;margin: 0 3px 0 -5px;font-family: Microsoft YaHei ;'>&nbsp;&nbsp;元</span>";
+							html+= "</span>";
+							html+= "</div>";
+							var num = '';
+							num += "<div>";
+							num+= "<div class='name_bids'><span>出价人数</span></div>";
+							num+= "<div class='value'><span>"+data.bids_person_num+"人</span></div>";
+							num+= "</div>";
+							var buttom = '';
+							buttom += "<div>";
+							buttom+= "<div class='name_bids'><span>出价次数</span></div>";
+							buttom+= "<div class='value'><span>"+data.bids_num+"人</span></div>";
+							buttom+= "</div>";
+							var news = "<span>&nbsp;"+data.biddingname+"</span>";
+							$("#now_price").html(html); 
+							$("#count_num").html(num); 
+							$("#bids_num").html(buttom); 
+							$(".new_Bidders").html(news); 
+
+						}
+					});
+				});	
+								
+			}
+						
+		    
+		});
+		
+		
+$("#add_comment").click(function(){
+		var pl = $("#comment").val();
+		var con_id = $("#con_id").val();
+		var teshu = /^[^|"'<>=-]*$/;
+		if(!teshu.test(pl)){
+			alert('不能有特殊字符!');
+			$("#comment").val("");
+			return;
+		}
+		if (pl==''){
+			alert('请输入要评论的内容!');
+			return;
+		}else{
+			//------------add------------
+			var $htmls = '';
+			var d = new Date();
+			var sconds = ''+d.getSeconds();
+			var mins = ''+d.getMinutes();
+			var riqi = ''+d.getDate();
+			var u_name = $("#user_info_name").val();
+			var u_url = $("#user_info_url").val();
+			if(sconds.length == 1){ sconds = "0"+sconds;}
+			if(mins.length == 1){ mins = "0"+mins;}
+			if(riqi.length == 1){ riqi = "0"+riqi;} 
+			var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+riqi+" "+d.getHours()+":"+mins+":"+sconds;
+			$htmls +="<div>"; 
+			$htmls +="<div class='comment'>";
+			$htmls +="<img class='avatar' src='"+u_url+"' alt='头像'>";
+			$htmls +="<div class='commentator'>"+u_name+"</div>";
+				$htmls +="<p class='comment'>"+pl+"</p>";
+					$htmls +="<div class='man'>";
+						$htmls +="<a class='rpl' href='javascript:void(0);' onclick='reply(43460, '龙猫')'>回复</a>";
+					$htmls +="</div>"; 
+					$htmls+="</div>";
+			$htmls +="</div>";
+			$($htmls).insertBefore(".comment_sun");
+			//---------------post------------
+			$.ajax({
+				type : "get",
+				url : "{:U('Goods/Addcomment')}",
+				data : {com:pl,con_id:con_id},
+				success:function(data){
+				  $html = '';
+				  if (data == 1){
+					alert('评论成功');
+					$("#comment").val("");
+				  }else if(data ==2){
+					alert('失败');
+				  }
+
+			   }
+			});
+
+		}
+	
+	});
+	
+	$(".return_pl").each( function(i,e){
+		$(e).click( function(){
+		$("#comment").val("");
+		var comm = $(this).attr("data");
+		var a = "回复 "+comm+" :";
+			$("#comment").val(a).focus();
+		});
+	});
+	
+	
+});
+</script>

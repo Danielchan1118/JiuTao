@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>大转盘</title>
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body> 
+	<div class="bodytitle"><div id="h_title">大转盘规则列表</div></div>
+	
+	<div class="subbox">  
+		<div class="bui_content_b">
+			<div class="bui-content">
+				<table cellspacing="0" class="table table-bordered">
+					<tr id="jiacu" class="phb_name phb_back phb_bors atim_tr">
+						<th>#</th>
+						<th>轮盘奖励名</th>
+						<th>倍率</th>
+						<th>奖励积分</th>
+						<th>前端返回值</th>
+						<th>操作</th>
+					</tr>
+					<volist name="list" id="v" key="key">
+						<tr align="center" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+							<td>{$v.wheel_id}</td>
+							<td>{$v.wheel_name}</td>
+							<td>{$v.wheel_v}</td>
+							<td>{$v.wheel_coin}</td>
+							<td>{$v.num_return}</td>
+							<td><a href="{:U('Activity/roleWheelAdd?id='.$v['wheel_id'])}">编辑</a></td>
+						</tr>
+					</volist>
+				</table>	
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+
+<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+
+<title>添加积分</title>
+</head>
+<body>
+<div class="bodytitle">
+	<div id="h_title">添加积分</div>
+	<form action="{:U('UserCenter/AddIntegral')}" method="post" enctype="multipart/form-data">
+		<div class="margin_bottom">
+			<span class="span-right-space">用户名：<input type="text" name="username" value="{$username}" class="input-back-bor"></span>
+			<span class="span-right-space">添加时间：<input type="text" readonly="readonly" style="width: 185px" name="reservation" id="reservation" class="form-control" value="{$start_time|date='Y-m-d',###} - {$end_time|date='Y-m-d',###}" />
+				<script type="text/javascript">
+				  $(document).ready(function() {
+					 $('#reservation').daterangepicker(null, function(start, end, label) {
+					 console.log(start.toISOString(), end.toISOString(), label);
+					 });
+				  });
+				</script>
+			</span>
+			<span class="span-right-space"> <input type="submit" name="do_sumbit" value="搜索" class="change_back"/></span>
+		</div>
+	</form>
+
+</div>
+
+<div class="subbox">  
+	<div class="bui_content_b">
+		<div class="bui-content">
+			<table  cellspacing="0" class="table table-bordered">
+				<tr class="phb_name phb_back phb_bors atim_tr">
+					<th></th>
+					<th>序号</th>
+					<th>管理员</th>
+					<th>用户名</th>
+					<th>添加积分数</th>
+					<th>添加时间</th>
+					
+				</tr>
+				<volist name="edituser" id="vo" key="key">
+				<tr id="hidd{$vo.id}" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+				  <td ><input value="{$vo.id}" name="ordercheck" data-check-data="order{$vo.id}" type="checkbox"/></td>
+				  <td>{$vo.id}</td>
+				  <td>{$vo.adminuser}</td>
+				  <td>{$vo.username}</td>
+				  <td>{$vo.intergral}</td>
+				  <td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+				  
+				</tr>
+				</volist>
+			</table>
+			<div>
+			  <ul class="toolbar pull-left">
+				<li><label class="checkbox" for="check_box"><input type="checkbox" data-check='uncheck'><a href="javascript:;" >全选</a></label></li>
+				<li><p><button class="button" id="alldel" > 批量删除 </button></p></li>
+			  </ul>
+			  <div class="pages_css">
+				{$Page}
+			  </div>
+			</div>
+		</div>
+	</div>
+</div> 
+<script src="/Public/youmi/js/WeiZhuan.js" type="text/javascript"></script> 
+<script type="text/javascript">
+  WeiZhuan.init({'init':'Check,AllDel,OneDel'});
+
+  var AjaxUrl = {
+    OrderDel : "{:U('UserCenter/test')}",
+  };
+
+</script>	
+</body>
+</html>

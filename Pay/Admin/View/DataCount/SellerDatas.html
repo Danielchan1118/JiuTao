@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title> 商家应用消耗统计 </title>
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" />
+<!--以下四个是时间插件-->
+<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+</head>
+<body> 
+<!-- body title -->
+<div class="bodytitle">
+	<div id="h_title">商家应用消耗统计</div>
+	<form action="{:U('DataCount/SellerDatas')}" method="post" class="user_dow">
+		<div class="margin_bottom" style="float:left;">
+			<span class="span-right-space">
+			  用户安装时间：<input type="text" readonly="readonly" style="width: 200px" name="reservation" id="reservation" class="form-control" value="{$start_time|date='Y-m-d',###} - {$end_time|date='Y-m-d',###}" />
+				<script type="text/javascript">
+				  $(document).ready(function() {
+					 $('#reservation').daterangepicker(null, function(start, end, label) {
+					 console.log(start.toISOString(), end.toISOString(), label);
+					 });
+				  });
+				</script>
+			</span>
+			<span class="span-right-space">商家名： <input type="text" class="input-back-bor user_downlog" id="lbClassName"  name="coopuser" value="{$coopuser}"></span>
+			<span class="controls" style="display:display: -webkit-inline-box;">
+				<div class="dropdown">
+					<div style="text-align:right;padding-right:10px"><a href="javascript:void(0);" onclick="$('.dropdown').css('display','none');">&nbsp;X&nbsp;</a></div>
+				  <div class="select-list cf">
+					<volist name="user_list" id="vo">
+					  <label class=""><a href="javascript:;" key="{$vo.id}" class="radio-box"> {$vo.username} </a></label>
+					</volist>
+				  </div>
+				</div>
+			</span>
+			<span class="span-right-space"><button type="submit" class="change_back"> 查询 </button></span>
+		</div>
+	</form>
+	<div style="float:left; margin-top:-4px;">
+		<form action="__URL__{$strUrl}" method="post" > 
+			<input type="hidden" name="start_time" value="{$start_time}"/>
+			<input type="hidden" name="end_time" value="{$end_time}"/>
+			<input type="submit" value="导出Excel" class="change_back"/>
+		</form>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="subbox">  
+<div class="bui_content_b">
+  <div class="bui-content">
+       <table cellspacing="0" class="table table-bordered" width="1130px">
+		  <thead>
+			<tr class="phb_name phb_back phb_bors atim_tr">
+			  <th>序号</th>
+			  <th>商家名</th>
+			  <th>上传数量</th>
+			  <th>消耗金额</th>
+			  <th>激活量</th>
+			</tr>
+		</thead>
+		<tbody>
+		   <volist name="user_info" id="v" key="key">
+			<tr align="center" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+			  <td>{$v.cid}</td>
+			  <td>{$v.username}</td>
+			  <td>{$v.appcount}</td>
+			  <td>{$v.app_money}</td>
+			  <td>{$v.move}</td>
+			</tr>
+		  </volist>    
+		</tbody>
+		</table>
+       <div id="checkbox_class">
+		<div class="pages_css">
+		{$Page}
+		</div>
+		</div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+	$(".bodytitle #lbClassName").click(function(){
+		$(".dropdown").css("display","block"); 
+	});
+
+	var className = $.trim($("#lbClassName").text());
+	$(".select-list label a").click(function(){
+		$(".select-list label").removeClass("selected");
+		$(this).parent().addClass("selected");
+		$("#lbClassName").val($(this).html());
+		$("#lbClassName").attr("appid",$(this).attr('key'));
+		$(".dropdown").css("display","none");
+	}).each(function(){
+		if($(this).text() == className){
+			$(this).parent().addClass("selected");
+		}
+	});
+
+</script>
+</body>
+</html>

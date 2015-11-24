@@ -1,0 +1,317 @@
+<include file="head"  />
+		<title>{$shop_list.title}</title>
+		<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/>  
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/index.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/detail.css"/>
+		<style type="text/css">
+			.num_bold { font-weight:bold; font-size:20px ;margin-right:2px;}
+		</style>
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101181247" data-redirecturi="http://www.07260.com" charset="utf-8" data-callback="true"></script>
+		<script type="text/javascript">
+			QC.Login({
+				   btnId:"qqLoginBtn"    //插入按钮的节点id
+			});
+			$(function(){
+			
+			});
+		
+		</script>		
+		<script type="text/javascript">
+			//时间倒计时start
+			lxfEndtime();
+			function lxfEndtime() {
+					$(".lxftime").each(function () {
+						var endtime = new Date($(this).attr("endtime")).getTime(); //取结束日期(毫秒值)
+						var nowtime = new Date().getTime(); //今天的日期(毫秒值)服务器时间
+						var seconds = ((endtime - nowtime)/1000); //还有多久(秒)
+						var CDay = Math.floor(seconds / 60 / 60 / 24);
+						var CHour = Math.floor(seconds / 60 / 60 % 24);
+						var CMinute = Math.floor(seconds / 60 % 60); 
+						var CSecond = Math.floor(seconds % 60); //"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+						var CMSecond = Math.floor(seconds*10%10);// 计算100毫秒
+
+						if (endtime <= nowtime) {
+							$(this).html("已过期"); //如果结束日期小于当前日期就提示过期啦
+						} else {
+							$(this).html("<span class='num_bold'>"+CDay + "</span>天<span class='num_bold'>" + (CHour<10?"0"+CHour:CHour) + "</span>小时<span class='num_bold'>" + (CMinute<10?"0"+CMinute:CMinute) + "</span>分<span class='num_bold'>" + (CSecond<10?"0"+CSecond:CSecond) + "."+CMSecond+"</span>秒"); //输出有天数的数据
+							//当前时间变化
+							$(this).attr("nowtime", zhtime(nowtime+100));
+						}
+					});
+					setTimeout("lxfEndtime()", 100);
+			}
+			//js时间戳格式转05/20/2014 20:54:40
+			function zhtime(needtime) {
+				var oks = new Date(needtime);
+				var year = oks.getFullYear();
+				var month = oks.getMonth() + 1;
+				var date = oks.getDate();
+				var hour = oks.getHours();
+				var minute = oks.getMinutes();
+				var second = oks.getSeconds();
+				var msecond=oks.getMilliseconds()
+				return month + '/' + date + '/' + year + ' ' + hour + ':' + minute + ':' + second+'.'+msecond;
+			}
+			//时间倒计时end
+			
+			
+		</script>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/rrshare.css"/>    
+	</head>
+<body >
+	<!--左侧分类展示start  固定-->
+	<include file="nav" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	<div class="container">
+		<div class="main center clearfix">
+			<div class="ershou-details">
+				<div class="ershou-photos-wr">
+					<a class="ershou-favorite" href="javascript:void(0);" style="background-image:url('__PUBLIC__/Home/style/image/heart.png');" onclick="favorites();">5</a>
+					<a class="bigger-photo" title="点开看大图" href="http://ershou.u.qiniudn.com/iOS_1419071350_55887_1?imageView2/5/w/800/h/800" target="_blank">
+						<img class="bigger" src="http://ershou.u.qiniudn.com/iOS_1419071350_55887_1?imageView2/5/w/800/h/800" alt="出日版5s16g和32g">
+					</a>
+					<div class="ershou-photo-slide">
+						<div class="ershou-small-photos">
+							<img class="small cur" src="http://ershou.u.qiniudn.com/iOS_1419071350_55887_1?imageView2/5/w/800/h/800" alt="出日版5s16g和32g">
+						</div> 
+						<div class="ershou-small-photos">
+							<img class="small " src="http://ershou.u.qiniudn.com/iOS_1419071351_55887_2?imageView2/5/w/800/h/800" alt="出日版5s16g和32g">
+						</div> 
+					</div>
+					<div class="ershou-photo-slide-layer"></div>
+				</div>
+				<if condition="$pay_type eq 4">
+				<div class="ershou-info">
+					<div class="ershou-hd">
+						<h2 class="ershou-title">出日版5s16g和32g</h2>
+						<div style="z-index: 9; margin-bottom: 0;">
+							<span style="margin-left: 20px;margin-right: 27px; color: #858E8F; text-decoration: none;">当前价</span>
+							<span style="color: #d91615;">
+								<span style="font-size: 26px;font-weight: 700;">403,000</span>
+								<span style="font-weight: 700;margin: 0 3px 0 -5px;font-family: Microsoft YaHei ;">&nbsp;&nbsp;元</span>
+							</span>
+						</div>
+						<div style="margin: 5px 0px 10px; position: relative;">
+							<span style="margin-left: 20px; margin-right: 27px; color: #858E8F; text-decoration: none;">距结束</span>
+							<span class="lxftime" nowtime="" endtime="12/25/2014 20:42:00" ></span><!--endtime是变量-->
+						</div>
+						<div style="font-size:20px; color:#d91615; font-weight:bold; text-align:center; ">
+							<img src="__PUBLIC__/Home/style/image/start_bids_button.png" alt="人人分享" class="bids_button">
+						</div>
+					</div>
+					<ul class="ershou-detail">
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>起拍价格</span></div>
+							<div class="value"><span>xx元</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>加价幅度</span></div>
+							<div class="value"><span>xx元/次</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>出价人数</span></div>
+							<div class="value"><span>xx人</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>出价次数</span></div>
+							<div class="value"><span>xx次</span></div>
+						</li>
+						<div style="clear:both;"></div>
+						<li class="ershou-seller">					
+							<div class="name_bids"><span>卖家</span></div>
+							<div class="value">
+								<span>微信_peter feng</span>
+							</div>
+						</li>							
+						<li class="ershou-tel">
+							<div class="name_bids"><span>手机</span></div>
+							<div class="value"><span>15071392203</span></div>
+						</li>
+						<li class="ershou-phone">
+							<div class="name_bids"><span>QQ</span></div>
+							<div class="value"><span>1239742303</span></div>
+						</li>						
+						<li class="ershou-place">							
+							<div class="name_bids"><span>交易地点</span></div>
+							<div class="value"><span>南二舍</span></div>
+						</li>
+						<div style="clear:both;"></div>
+					</ul>
+					<a name="xn_share" class="hidden" onclick="shareClick()" href="javascript:void(0);"><span class="xn_share_wrapper xn_share_button_small"></span></a>
+					<a class="xn_share_bids" onclick="shareClick()" href="javascript:void(0);">
+						<img src="__PUBLIC__/Home/style/image/renrenshare.png" alt="人人分享">
+					</a>
+					<script type="text/javascript">
+						function shareClick() {
+							var title = $(".ershou-title").text(),
+							description = $("#user_cmt").text(),
+							pic = $(".bigger").attr('src');
+							var rrShareParam = {
+								resourceUrl : '',	//分享的资源Url
+								srcUrl : '',	//分享的资源来源Url,默认为header中的Referer,如果分享失败可以调整此值为resourceUrl试试
+								pic : pic,		//分享的主题图片Url
+								title : title,		//分享的标题
+								description : description	//分享的详细描述
+							};
+							rrShareOnclick(rrShareParam);
+						}
+					</script>
+				</div>
+				</if>
+				
+				<div class="ershou-info">
+					<div class="ershou-hd">
+						<h2 class="ershou-title">出日版5s16g和32g</h2>
+						<div style="z-index: 9; margin-bottom: 0;">
+							<span style="margin-left: 20px;margin-right: 27px; color: #858E8F; text-decoration: none;">当前价</span>
+							<span style="color: #d91615;">
+								<span style="font-size: 26px;font-weight: 700;">403,000</span>
+								<span style="font-weight: 700;margin: 0 3px 0 -5px;font-family: Microsoft YaHei ;">&nbsp;&nbsp;元</span>
+							</span>
+						</div>
+						<div style="margin: 5px 0px 10px; position: relative;">
+							<span style="margin-left: 20px; margin-right: 27px; color: #858E8F; text-decoration: none;">距结束</span>
+							<span class="lxftime" nowtime="" endtime="12/25/2014 20:42:00" ></span><!--endtime是变量-->
+						</div>
+						<div style="font-size:20px; color:#d91615; font-weight:bold; text-align:center; ">
+							<img src="__PUBLIC__/Home/style/image/start_bids_button.png" alt="人人分享" class="bids_button">
+						</div>
+					</div>
+					<ul class="ershou-detail">
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>起拍价格</span></div>
+							<div class="value"><span>xx元</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>加价幅度</span></div>
+							<div class="value"><span>xx元/次</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>出价人数</span></div>
+							<div class="value"><span>xx人</span></div>
+						</li>
+						<li class="ershou-place-bids">
+							<div class="name_bids"><span>出价次数</span></div>
+							<div class="value"><span>xx次</span></div>
+						</li>
+						<div style="clear:both;"></div>
+						<li class="ershou-seller">					
+							<div class="name_bids"><span>卖家</span></div>
+							<div class="value">
+								<span>微信_peter feng</span>
+							</div>
+						</li>							
+						<li class="ershou-tel">
+							<div class="name_bids"><span>手机</span></div>
+							<div class="value"><span>15071392203</span></div>
+						</li>
+						<li class="ershou-phone">
+							<div class="name_bids"><span>QQ</span></div>
+							<div class="value"><span>1239742303</span></div>
+						</li>						
+						<li class="ershou-place">							
+							<div class="name_bids"><span>交易地点</span></div>
+							<div class="value"><span>南二舍</span></div>
+						</li>
+						<div style="clear:both;"></div>
+					</ul>
+					<a name="xn_share" class="hidden" onclick="shareClick()" href="javascript:void(0);"><span class="xn_share_wrapper xn_share_button_small"></span></a>
+					<a class="xn_share_bids" onclick="shareClick()" href="javascript:void(0);">
+						<img src="__PUBLIC__/Home/style/image/renrenshare.png" alt="人人分享">
+					</a>
+					<script type="text/javascript">
+						function shareClick() {
+							var title = $(".ershou-title").text(),
+							description = $("#user_cmt").text(),
+							pic = $(".bigger").attr('src');
+							var rrShareParam = {
+								resourceUrl : '',	//分享的资源Url
+								srcUrl : '',	//分享的资源来源Url,默认为header中的Referer,如果分享失败可以调整此值为resourceUrl试试
+								pic : pic,		//分享的主题图片Url
+								title : title,		//分享的标题
+								description : description	//分享的详细描述
+							};
+							rrShareOnclick(rrShareParam);
+						}
+					</script>
+				</div>
+				
+				
+			</div>
+			<div class="ershou-desc">
+				<div class="desc clearfix">
+					<img id="user_ph" src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM77CxaRh6bR6nvQ1LmZnT9SQXUfdBpImy8zHCkAIZprI6Cd8Rjt57Rjxe6Q2nxG8YL9OYTuQNDwTw/0" alt="头像">
+					<span id="user_cmt">16g是au版卡贴可实现三网 成色充新 没用一点划痕和磕碰 2050出 32g是自己用的 只用了3月 成色很新 仅有一处很小的磕伤 2100出 价格已经很优惠了 故两部手机均一分不刀 如果还觉得贵的话 请勿浪费大家时间<br>(联系我的时候，请说明是在校园二手街看见的噢！)</span>
+				</div>
+			</div>
+			<div class="comments">
+			<div class="comments-title">评论</div>
+				<div class="comments-wr">
+					<div class="comment-wr">
+						<div class="comment">
+							<img class="avatar" src="__PUBLIC__/Home/style/image/iOS_avatar_1418135630_48951_0.jpg" alt="头像">
+							<div class="commentator">龙猫</div>
+							<p class="comment">32G也是日版用卡贴的吗？</p>
+							<div class="man">
+								<a class="rpl" href="javascript:void(0);" onclick="reply(43460, '龙猫')">回复</a>
+								<!-- <a class="del" href="javascript:void(0);">#1</a> -->
+							</div>
+						</div>
+						
+						<div class="comment">
+							<img class="avatar" src="http://wx.qlogo.cn/mmopen/Q3auHgzwzM77CxaRh6bR6nvQ1LmZnT9SQXUfdBpImy8zHCkAIZprI6Cd8Rjt57Rjxe6Q2nxG8YL9OYTuQNDwTw/0" alt="头像">
+							<div class="commentator">微信_peter feng<span class="rpy-to">龙猫</span></div>
+							<p class="comment">均是</p>
+							<div class="man">
+								<a class="rpl" href="javascript:void(0);" onclick="reply(43463, '微信_peter feng')">回复</a>
+								<!-- <a class="del" href="javascript:void(0);">#2</a> -->
+							</div>
+						</div>
+						
+						<div class="comment">
+							<img class="avatar" src="__PUBLIC__/Home/style/image/iOS_avatar_1418135630_48951_0.jpg" alt="头像">
+							<div class="commentator">龙猫<span class="rpy-to">微信_peter feng</span></div>
+							<p class="comment">额，好吧，卡贴好麻烦，不方便升级系统啊</p>
+							<div class="man">
+								<a class="rpl" href="javascript:void(0);" onclick="reply(43464, '龙猫')">回复</a>
+								<!-- <a class="del" href="javascript:void(0);">#3</a> -->
+							</div>
+						</div>
+
+						<div class="post-comment clearfix">
+							<input id="goods_id" type="hidden" value="95246">
+							<img class="avatar" src="__PUBLIC__/Home/style/image/avatar-unlogin.png" alt="头像">
+							<div class="commenting-unlogin clearfix">
+								<div class="comment-input-wr-wr">
+									<div class="comment-input-wr">
+										<span class="tips">评论总要登录留个名吧</span>
+									</div>
+								</div>
+								<button class="comment-login" data-type="l">登录</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="concerned-goods">
+				<div class="concerned-title">相关商品</div>
+				<div class="goods-list">
+					<ul class="clearfix">
+						<!--循环start-->
+						<li>						
+							<a href="http://hust.2shoujie.com/goods/93498" title="surface rt 32G">
+								<img src="http://ershou.u.qiniudn.com/Web_1417674601_547fff69ec7ce?imageView2/5/w/140/h/140" alt="surface rt 32G">
+							</a>
+						</li>
+						<!--循环end-->				
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	

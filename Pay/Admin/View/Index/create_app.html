@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="Description" content="">
+		<meta name="Keywords" content="">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>91找游网</title>
+		<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+		<link href="/Public/Plugin/mta/style/css/iframe_include.css" rel="stylesheet" type="text/css">
+		<link href="/Public/Plugin/mta/style/css/global.css" rel="stylesheet" type="text/css">
+		<link href="/Public/Plugin/mta/style/css/gri.controls.css" rel="stylesheet" type="text/css">
+
+		<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+		<script src="/Public/jquery/jquery.cookie.js"></script> 
+		<link href="/Public/Plugin/SWFUpload/css/default.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="/Public/Plugin/SWFUpload/swfupload.js"></script>
+		<script type="text/javascript" src="/Public/Plugin/SWFUpload/js/swfupload.queue.js"></script>
+		<script type="text/javascript" src="/Public/Plugin/SWFUpload/js/fileprogress.js"></script>
+		<script type="text/javascript" src="/Public/Plugin/SWFUpload/js/handlers.js"></script>
+	</head>
+<body>
+  
+<div id="content" class="mta_full_page">  
+	<link href="/Public/Plugin/mta/style/css/register.css" rel="stylesheet" type="text/css">
+	<div id="register" class="mod_basic">
+		<div class="title">
+			<h3>注册应用</h3>
+		</div>
+
+		<div class="content">
+			<!-- 第一步 开始 -->
+			<if condition="$app_id eq '' ">
+			<div id="divStep1">
+			<div class="step step_1">
+				<span>填写资料，创建您的应用</span>
+				<span>获取APPKEY，下载SDK完成开发</span>
+				<span>插入SDK，上传应用</span>
+			</div>
+			<table id="tblRegister" class="ui_form">
+				<colgroup>
+					<!-- 请指定各个列合适的宽度 -->
+					<col style="width:130px">
+					<col style="width:auto">
+				</colgroup>
+				<!-- 校验成功: success; 校验错误: error -->
+				<tbody>
+				<tr class="" id="trAppName">
+					<th scope="row"><label for="r_name">应用名称<em class="ui_form_required">*</em></label></th>
+					<td>
+						<input id="txtAppName" maxlength="64" class="input_large" value="" type="text">
+						<span class="app_name_text"> </span>
+					</td>
+				</tr>
+				<!-- 校验成功: success; 校验错误: error -->
+				<tr class="" id="trPortal">
+					<th scope="row"><label for="r_os">系统平台<em class="ui_form_required">*</em></label></th>
+					<td>
+						<div id="divPortal" class="ui_checkboxs">
+							<label id="lbPortal31" class="">
+								<b></b>
+								<span class="register_bookmark"></span>
+								<input id="chkPortal31" name="r_os_1" type="checkbox" tag="31">
+								<i class="icon_android"></i>Android                            
+							</label>
+						</div>
+					</td>
+				</tr>
+				<!-- 校验成功: success; 校验错误: error -->
+				<tr class="" id="trAppClass">
+					<th scope="row"><label for="r_type">应用类型<em class="ui_form_required">*</em></label></th>
+					<td>
+						<div class="select-append">
+							<div class="btn-group"><!--open 为显示浮层-->
+							<label class="select-xlarge" id="lbClassName">请选择<i class="icon-caret"></i></label>
+								<!--下拉菜单-->
+								<div class="dropdown">
+									<div class="select-list cf">
+										<label><a href="javascript:;" key="1" class="radio-box">游戏</a></label>
+										<label><a href="javascript:;" key="2" class="radio-box">应用</a></label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ui_form_validate">
+							<div class="ui_form_success">
+								<i class="icon_success"></i>
+							</div>
+							<div class="ui_form_error">
+								<i class="icon_error"></i> <span id="spanAppClass">此项必须选择</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- 校验成功: success; 校验错误: error -->
+				<tr class="" id="trAppName">
+					<th scope="row"><label for="r_name">应用说明<em class="ui_form_required">*</em></label></th>
+					<td>
+						<textarea name="app_explain" cols="5" id="app_explain" rows=""></textarea>
+						<div class="ui_form_validate">
+							<div class="ui_form_success">
+								<i class="icon_success"></i>
+							</div>
+							<div class="ui_form_error">
+								<i class="icon_error"></i> <span id="spanAppName">应用说明不能为空</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<!-- 校验成功: success; 校验错误: error -->
+				<tr class="">
+					<th scope="row"><label>上传应用Logo</label></th>
+					<td>
+						<div class="operation-logo">
+						<form id="formcover" action="{:U('/Home/CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+							<div class="pic" id="app_cover">
+								<img src="/Public/Plugin/mta/style/images/icon-logo.png" width="65" height="65">
+							</div>
+							<div class="opt">
+								<div class="help-block">图片大小为 50*50像素</div>
+								<input type="file" id="cover" name="app_cover" value=""/> 
+							</div>
+						</form>
+						</div>
+					</td>
+				</tr>
+                <tr class="">
+					<th scope="row"><label>上传应用截图</label></th>
+					<td>
+						<div class="operation-logo">
+						<form id="formimages" action="{:U('/Home/CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+							<div class="pic" id="app_images">
+								<img src="/Public/Plugin/mta/style/images/images.png" width="65" height="65">
+							</div>
+							<div class="opt">
+								<div class="help-block">图片大小为 400*800像素</div>
+								<input type="file" id="images" name="app_images" value="{$appInfo.app_images}"/>
+							</div>
+						</form>
+						</div>
+					</td>
+				</tr>
+				<tr id="trRegister" class="">
+					<th scope="row"></th>
+					<td>
+						<iframe style="display:none" name='hidden_frame' id="hidden_frame"></iframe> 
+						<button id="btnRegister" class="button button_large button_primary">创建应用</button>
+						<button id="btnBack" class="button button_link">取消并返回</button>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+			</if> 
+			<!-- 第一步 结束 -->
+
+			<!-- 第二步 开始 -->
+			<div id="divStep2" style="display: none;">
+			<div class="step step_2">
+				<span>填写资料，创建您的应用</span>
+				<span>获取APPKEY，下载SDK完成开发</span>
+				<span>插入SDK，上传应用</span>
+			</div>
+
+			<div class="r_tips">
+				<div class="ui_tips success"><i class="icon_success"></i><span id="spanSuccAppName"></span></div>
+			</div>
+
+			<div class="appkey_info">
+				<div id="divAppKey" class="appkey_code"></div>
+				<p>请保存好<strong>App Key</strong>，用于添加在代码中； 请按照以下开发指南的步骤完成开发，才能将数据上报给MTA。</p>
+			</div>
+
+			<div class="div_tabs">
+				<div class="ui_buttons">
+					<button id="btnHelpAndroid" class="button button_large first" name="btnHelpSDK"><i class="icon_android"></i>Android 开发指南</button>
+				</div>
+			</div>
+
+			<dl id="divHelpAndroid" class="dev_help" name="dlHelpSdk">
+				<dt><strong>1</strong>下载 Android SDK</dt>
+				<dd>
+					<p><a href="#" onclick="return MTA.Manage.AppRegister.downloadSDK(&#39;Android&#39;)" class="button">下载 SDK<i class="icon_down"></i></a></p>
+				</dd>
+				<dt><strong>2</strong>向工程中导入SDK</dt>
+				<dd>
+					<p> 将SDK 中的JAR 包导入您创建的Android 项目，以下假设您已经创建了项目A。 右键点击你的工程，然后选择“PROPERTIES”；在工程属性对话框左边选择“JAVA BUILD PATH”；在工程属性对话框主窗口选择“LIBRARIES”；点击“ADD JARS”，添加<SDK_PATH>/ANDROID_API.JAR。
+					</p>				
+				</dd>
+				<dt><strong>3</strong>配置AndroidManifest.xml文件</dt>
+				<dd>
+					<p>
+						<textarea class="code">在AndroidManifest.xml添加权限代码
+							<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+								<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+								<uses-permission android:name="android.permission.INTERNET" />
+								<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+								<uses-permission android:name="android.permission.GET_TASKS" />
+								<uses-permission android:name="android.permission.INTERNET" />
+								<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+								<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+								<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+								<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+								<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+								<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+								<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+								<uses-permission android:name="android.permission.BLUETOOTH" />
+								<uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+							在AndroidManifest.xml  注册service 服务
+							<service android:name="com.wyr.microvisitors.service.MyService" />
+						</textarea>
+					</p>
+				</dd>
+				<dt><strong>5</strong>开发完成</dt>
+				<dd>
+					<p>成功嵌入sdk后，在模拟器或手机运行您上面已经编译好的应用，便会自动上报数据。</p>
+					<p>
+						<span id="spanNoAndroid">&nbsp;&nbsp;&nbsp;本次注册未申请Andorid版本</span>
+					</p>
+				</dd>
+				<dd>
+					<button id="btnPackage" class="button button_large button_primary">打包完成</button>
+				</dd>
+			</dl>
+
+			</div>
+			<!-- 第二步 结束 --> 
+			
+			<!-- 第三步 开始 --> 
+			<if condition="$app_id gt 0 ">
+			<div id="divStep3">
+				<div class="step step_3">
+					<span>填写资料，创建您的应用</span>
+					<span>获取APPKEY，下载SDK完成开发</span>
+					<span>插入SDK，上传应用</span>
+				</div>
+				<div class="operation-logo">
+					<form id="formcover" action="{:U('CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+						<div class="pic" id="app_cover">
+							<img src="{$appinfo.app_cover}" width="65" height="65">
+						</div>
+						<div class="opt">
+							<div class="help-block">图片大小为 50*50像素</div>
+							<input type="file" id="cover" name="app_cover" value="{$appinfo.app_cover}"/> 
+						</div>
+					</form>
+				</div>
+				<table class="ui_form">
+					<colgroup>
+						<!-- 请指定各个列合适的宽度 -->
+						<col style="width:130px">
+						<col style="width:auto">
+					</colgroup>
+					<!-- 校验成功: success; 校验错误: error -->
+                <tbody>
+					<tr class="hide">
+						<th scope="row"><label for="r_name">应用名称</label></th>
+						<td>
+							<span class="label" id="spanAppName">{$appinfo.app_name}</span>
+							<input id="editAppName" name="app_name" value="{$appinfo.app_name}" style="display: none;" type="text">
+							<button id="btnModifyAppName" class="button button_link">修改</button>
+						</td>
+					</tr>
+					<!-- 校验成功: success; 校验错误: error -->
+					<tr class="">
+						<th scope="row"><label for="r_os">系统平台</label></th>
+						<td>
+							<div id="divPortal" class="ui_checkboxs">
+								<label id="lbPortal31" class="checked">
+									<b></b>
+									<span class="register_bookmark"></span>
+									<input id="chkPortal31" name="r_os_1" tag="31" type="checkbox">
+									<i class="icon_android"></i>Android                            
+								</label>
+							</div>
+						</td>
+					</tr>
+                <!-- 校验成功: success; 校验错误: error -->
+					<tr class="" id="trAppClass">
+						<th scope="row"><label for="r_type">应用类型<em class="ui_form_required">*</em></label></th>
+					<td>
+						<div class="select-append">
+							<div class="btn-group"><!--open 为显示浮层-->
+							<label class="select-xlarge" id="lbClassName"><if condition="$appinfo.app_type eq 1"> 游戏 <elseif condition="$appinfo.app_type eq 2" /> 应用 </if><i class="icon-caret"></i></label>
+								<!--下拉菜单-->
+								<div class="dropdown">
+									<div class="select-list cf">
+										<label <if condition="$appinfo.app_type eq 1"> class="selected" </if>><a href="javascript:;" key="1" class="radio-box">游戏</a></label>
+										<label <if condition="$appinfo.app_type eq 2"> class="selected" </if>><a href="javascript:;" key="2" class="radio-box">应用</a></label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="ui_form_validate">
+							<div class="ui_form_success">
+								<i class="icon_success"></i>
+							</div>
+							<div class="ui_form_error">
+								<i class="icon_error"></i> <span id="spanAppClass">此项必须选择</span>
+							</div>
+						</div>
+					</td>
+					</tr>
+					<tr class="" id="trAppName">
+						<th scope="row"><label for="r_name">应用说明<em class="ui_form_required">*</em></label></th>
+						<td>
+							<textarea name="app_explain" cols="5" id="app_explain" rows="">{$appinfo.app_explain}</textarea>
+							<div class="ui_form_validate">
+								<div class="ui_form_success">
+									<i class="icon_success"></i>
+								</div>
+								<div class="ui_form_error">
+									<i class="icon_error"></i> <span id="spanAppName">应用说明不能为空</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="">
+						<th scope="row"><label for="r_time">添加时间</label></th>
+						<td>
+							<span class="label">{$appinfo.add_time|date="Y-m-d H:i:s",###}</span>
+						</td>
+					</tr>
+					<tr class="">
+						<th scope="row"><label for="r_time">APPKEY</label></th>
+						<td>
+							<span class="label">{$appinfo.APP_KEY}</span>
+						</td>
+					</tr>
+					<tr class="">
+						<th scope="row"><label>上传应用截图</label></th>
+						<td>
+							<div class="operation-logo">
+							<form id="formimages" action="{:U('/Home/CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+								<div class="pic" id="app_images">
+									<img src="<?php if($app_images[0]){ echo $app_images[0]; }else{ ?>/Public/Plugin/mta/style/images/images.png <?php } ?>" width="65" height="65">
+								</div>
+								<div class="opt">
+									<div class="help-block">图片大小为 400*800像素</div>
+									<input type="file" id="images" name="app_images" value="<?php echo $app_images[0]; ?>"/>
+								</div>
+							</form>
+							</div>
+							<div class="operation-logo">
+							<form id="formimages2" action="{:U('CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+								<div class="pic" id="app_images2">
+									<img src="<?php if($app_images[1]){ echo $app_images[1]; }else{ ?>/Public/Plugin/mta/style/images/images.png <?php } ?>" width="65" height="65">
+								</div>
+								<div class="opt">
+									<div class="help-block">图片大小为 400*800像素</div>
+									<input type="file" id="images2" name="app_images2" value="<?php echo $app_images[1]; ?>"/>
+								</div>
+							</form>
+							</div>
+							<div class="operation-logo">
+							<form id="formimages3" action="{:U('CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+								<div class="pic" id="app_images3">
+									<img src="<?php if($app_images[2]){ echo $app_images[2]; }else{ ?>/Public/Plugin/mta/style/images/images.png <?php } ?>" width="65" height="65">
+								</div>
+								<div class="opt">
+									<div class="help-block">图片大小为 400*800像素</div>
+									<input type="file" id="images3" name="app_images3" value="<?php echo $app_images[2]; ?>"/>
+								</div>
+							</form>
+							</div>
+							<div class="operation-logo">
+							<form id="formimages4" action="{:U('CheckApp/image_upload')}" method="post" target="hidden_frame" enctype="multipart/form-data"> 
+								<div class="pic" id="app_images4">
+									<img src="<?php if($app_images[3]){ echo $app_images[3]; }else{ ?>/Public/Plugin/mta/style/images/images.png <?php } ?>" width="65" height="65">
+								</div>
+								<div class="opt">
+									<div class="help-block">图片大小为 400*800像素</div>
+									<input type="file" id="images4" name="app_images4" value="<?php echo $app_images[3]; ?>"/>
+								</div>
+							</form>
+							</div>
+						</td>
+					</tr>
+					<tr class="">
+						<th scope="row"><label for="r_time">上传应用</label></th>
+						<td>
+						<div id="content">
+							<form id="form" name="form" action="{:U('CheckApp/image_upload')}" method="post" enctype="multipart/form-data">
+								<div style="width:52px;float:left;border:1px solid #999;cursor:pointer" id="divBtn">
+									<div id="spanButtonPlaceHolder"></div>
+								</div>
+								<div class="fieldset flash" style="width:150px;float:left" id="fsUploadProgress"></div>
+								<div id="divStatus" style="display:none;width:100px;float:left">0 个文件已上传</div>
+								<div>
+									<input id="btnCancel" type="button" value="取消所有上传" onclick="swfu.cancelQueue();" disabled="disabled" style="display:none;margin-left: 2px; font-size: 8pt; height: 29px;" />
+									<?php echo substr($appinfo['android_url'],strrpos($appinfo['android_url'],'/')+1); ?>
+								</div>
+							</form>
+						</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"></th>
+						<td>
+							<input type="hidden" id="app_key" name="app_key" value="{$appinfo.APP_KEY}"/> 
+							<input type="hidden" name="did" value="{$appinfo.did}"/> 
+							<iframe style="display:none" name='hidden_frame' id="hidden_frame"></iframe> 
+							<button class="button button_large button_primary" id="btnSaveAppInfo">保存</button>
+							
+						</td>
+					</tr>
+                </tbody>
+				</table>
+				
+			</div>	
+			 </if>
+			<!-- 第三步 结束 --> 
+
+		</div>  <!-- end of content -->
+	</div>  <!-- end of register -->
+</div> <!-- end of content -->
+
+<script type="text/javascript">
+	var data={
+		app_key: "{$appinfo.APP_KEY}",
+		did: "{$appinfo.did}",
+		dotype: "{$dotype}",
+		appid: "{$app_id}",
+		create_url: "{:U('CheckApp/is_AppName')}",
+		create_frist: "{:U('CheckApp/CreateAppFrist')}",
+		create_three: "{:U('CheckApp/CreateAppThree')}",
+		create_applist: "{:U('AppManage/AppList')}",
+		image_upload: "{:U('CheckApp/image_upload')}",
+	};
+	
+	function callback(message,id,datas){ 
+		if(message == 2 || message == 3 ){
+			alert("上传失败！");
+		}else if(message == 4){
+			alert("上传成功");
+		}else if(message == 1){
+			$("#"+id+" img").attr("src",datas);
+		} 
+	}
+	
+	//第二步完成,跳转到第三步
+	$("#btnPackage").click(function (){
+		var app_id = $("#appid").val();
+		window.location.href="{:U('/Admin/CheckApp/CreateAppThree/app_id/"+app_id+"')}"; 
+	});
+
+</script>
+  <script type="text/javascript" src="/Public/youmi/js/create_app.js"></script>
+</body>
+</html>

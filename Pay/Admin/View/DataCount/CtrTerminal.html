@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>数据分析</title>
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href="/Public/youmi_admin/style/css/bui_css.css" rel="stylesheet">
+<link href="/Public/Plugin/mta/style/css/moulde.css" rel="stylesheet" type="text/css">
+<script src="/Public/Plugin/mta/style/js/highcharts.js"></script>
+<script src="/Public/Plugin/mta/style/js/exporting.js"></script>
+
+<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+<link href="/Public/Plugin/mta/style/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+</head>
+<body style="background:#EDEEF0">
+<div class="bodytitle"><div id="h_title">终端设备</div>
+	<div class="margin_bottom">
+		<span class="span-right-space">
+			<input type="text" readonly="readonly" style="width: 200px" name="reservation" id="reservation" class="form-control" value="{$start_time|date='Y-m-d',###} - {$end_time|date='Y-m-d',###}" />
+		</span>
+		<script type="text/javascript">
+			$(document).ready(function() {
+			   $('#reservation').daterangepicker(null, function(start, end, label) {
+				 console.log(start.toISOString(), end.toISOString(), label);
+			   });
+			});
+		</script>
+	</div>
+</div>
+
+<div class="subbox">  
+	<div class="bui_content_b">
+		<div class="mod_basic">
+			<div class="title">
+				<h3>关键指标详解</h3>
+				<!-- <span class="help">
+					<a href="javascript:;">?</a>
+					<div class="help_content">
+						待补充..
+					</div>
+				</span> -->
+				<div class="tabs" id="evt_tabs">
+				<a id="evt_1" href="javascript:;" <if condition="$downtype eq 'evt_1'"> class="current" </if> class="first">操作系统版本</a>
+				<a id="evt_2" href="javascript:;" >分辨率</a>
+				<a id="evt_3" href="javascript:;" >网络环境</a>
+				<a id="evt_4" href="javascript:;" >运营商</a>
+				<a id="evt_5" href="javascript:;" class="last">设备型号</a>
+				</div>
+				<input type="hidden" id="downtype" value="">
+			</div>
+			
+			<div class="content">
+				<h4 class="sub_title" id="hChartTitle">（含重复安装）操作系统版本分布</h4>
+				<div class="sub_content">
+					<!--图控件的模版，这里目前内容较少，后面方便扩展，直接在这里修改-->
+					<div id="container" style="min-width: 310px; max-width: 1175px; height: 376px; margin: 0 auto"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+	
+<script type="text/javascript">
+	var data = {
+		downarray: {$downarray},
+		categories: {$categories}
+	};
+	
+	var Url = {
+		downUrl : "{:U('DataCount/CtrTerminal')}"
+	};
+
+	$(function(){
+		$(".daterangepicker ").click(function(){
+			var shows = $(this).css("display");
+			if(shows == 'none'){
+				var datatimes = $("#reservation").val();
+				var downtype = $("#evt_tabs .current").attr("id");
+				if(datatimes && typeof(datatimes)!="undefined"){
+					$.ajax({
+					type: 'POST',
+					url: Url.downUrl,
+					data:{reservation:datatimes,downtype:downtype},
+					dataType:'json',
+					success:function(data){
+						DataCount.BarChart(data);
+					}
+				}); 
+				}
+			}
+		});
+	});
+
+</script>
+<script src="/Public/youmi/js/js/DataCount.js"></script>
+</body>
+</html>

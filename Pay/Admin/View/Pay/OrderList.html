@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>充值查询</title>
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+    <script src="/Public/youmi_admin/style/js/admin_common.js"></script>
+	
+	<!--以下四个是时间插件-->
+<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+</head>
+<body style="background: #EDEEF0;">
+<div class="bodytitle"><div id="h_title">充值查询</div>
+	<form action="{:U('/Admin/Pay/orderList')}" method="post">
+	<div class="margin_bottom">
+		<span class="span-right-space">
+			  上传日期：<input type="text" readonly="readonly" style="width: 200px" name="reservation" id="reservation" class="form-control" value="{$start_time |date="Y-m-d",###} - {$end_time |date="Y-m-d",###}" /> 
+					<script type="text/javascript">
+						$(document).ready(function() {
+						  $('#reservation').daterangepicker(null, function(start, end, label) {
+							console.log(start.toISOString(), end.toISOString(), label);
+						  });
+						});
+					</script>
+			</span>
+		订单号：<input type="text" name="order_id" value="{$order_id}" class="input-back-bor" />&nbsp;&nbsp;
+		商家账号名：
+		<select name='uid' class="input-back-bor">
+		<option value>--请选择商家--</option>
+		<volist name='userList' id='va'>
+			<option value='{$va.id}' <eq name='va.id' value='$uid'>selected='selected'</eq> >{$va.username}</option>
+		</volist>
+		</select>&nbsp;&nbsp;
+		充值状态： 
+		<select name='order_status' class="input-back-bor">
+			<option value>--充值状态--</option>
+			<option value='1,1,1' <eq name='status' value='1,1,1'>selected='selected'</eq>>下单未付款</option>
+			<option value='2,2,2' <eq name='status' value='2,2,2'>selected='selected'</eq>>充值成功</option>
+		</select>
+		<input type="submit" value="搜索" class="change_back" />
+	</div>
+	</form>
+</div>
+
+    <div class="subbox">  
+        <div class="bui_content_b">
+            <div class="bui-content">
+                <form action="{:U('/Admin/Pay/orderDelAll')}" method="post">
+                    <table cellspacing="0" class="table " style="font-family: -webkit-body;">
+                        <tr class="phb_name phb_back phb_bors atim_tr">
+                            <th><input value="" id="check_box" onclick="selectall('id[]');" type="checkbox"></th>
+                            <th>序号</th>
+                            <th>订单号</th>
+                            <th>商家账号</th>
+                            <th>充值方式</th>
+                            <th>金额</th>
+                            <th>充值时间</th>
+                            <th>订单状态</th>
+                        </tr>
+                        <volist name="pay_list" id="v" key="key">
+                        <tr class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+                            <td><input value="{$v.id}" name="id[]" type="checkbox"/></td>
+                            <td>{$v.id}</td>
+                            <td>{$v.orderid}</td>
+                            <td>{$v.pay_to_account}</td>
+                            <td>{$v.payname}</td>
+                            <td>{$v.pay_money}</td>
+                            <td>{$v.pay_time|date='Y-m-d H:i:s',###}</td>
+                            <td><switch name="v.order_status">
+                                <case value="1,1,1">下单未付款</case>
+                                <case value="2,2,2"><font color='green'>充值成功</font></case>
+                            </switch>
+                            </td>
+                        </tr>
+                        </volist>   
+                    </table>
+                    <div>
+                        <ul class="toolbar pull-left">
+                            <li>
+                                <label for="check_box">全选/取消</label>
+                            </li>
+                            <li>
+                                <p><input type="submit" class="button" value="批量删除" /></p>
+                            </li>
+                        </ul>
+                        <span class="lm1">总金额：{$pay_moneys}</span>
+                        <div class="pages_css">
+                            {$Page}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+     BUI.use('bui/calendar',function(Calendar){
+          var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            showTime : true,
+            lockTime : { //可以锁定时间，hour,minute,second
+            /*  
+              hour : 00,
+              minute: 00,
+              second : 00
+            */ 
+            },
+            autoRender : true
+          });
+        });
+</script>
+
+
+
+
+ 
+
+
+  

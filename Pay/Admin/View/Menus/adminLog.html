@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<title>菜单列表</title>
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+	<style type="text/css">
+		#jiacu td { font-weight: bold ; font-size:14px; text-align:center; color:black; }
+		#jiacu_1 { text-align:center; }
+	</style>
+</head>
+
+<body style="background:#EDEEF0">
+
+<div class="bodytitle">
+	<div id="h_title">管理员操作日志</div>
+</div>
+
+<div class="subbox">  
+  <div class="bui_content_b">
+    <div class="bui-content">
+      <table cellspacing="0" class="table table-bordered" width="1130" >
+        <tr id="jiacu" class="phb_name phb_back phb_bors atim_tr">
+          <th>登录IP</th>
+          <th>操作说明</th>
+          <th>操作时间</th>
+          <th>管理员</th>
+        </tr>
+        <volist name='logList' id='v' key="key">
+        <tr id="jiacu_1" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+          <td>{$v.ip}</td>
+          <td>{$v.remark}</td>
+          <td>{$v.time|date="Y-m-d H:i:s",###}</td>
+          <td>{$v.user}</td>
+        </tr>
+        </volist>
+      </table>
+      <div class="pages_css">
+        {$Page}
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

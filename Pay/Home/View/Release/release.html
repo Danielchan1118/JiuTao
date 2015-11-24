@@ -1,0 +1,225 @@
+<include file="head" />
+		<title>旧淘 - 低碳环保的生活方式 - 最安全方便二手市场</title>
+    <link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/> 
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/release.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/uploadify.css"/>		
+	<script src="__PUBLIC__/Home/style/js/jquery.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/Home/style/js/jquery.uploadify.min.js" type="text/javascript"></script>
+		<script type="text/javascript">			
+			$(function(){
+				$("#address").blur(function(){
+					var ares = $(this).val();
+					if(ares == ''){
+						alert('商家地址不能为空');
+						return false;
+					}
+					$('#er_ads').html('');
+					// 百度地图API功能
+					// 创建地址解析器实例
+					var myGeo = new BMap.Geocoder();
+					// 将地址解析结果显示在地图上,并调整地图视野
+					myGeo.getPoint(ares, function(point){
+						if (point) {
+							$('#lon').val(point.lng);
+							$('#lat').val(point.lat);
+						}else{
+							$('#er_ads').html('请用输入规范地址,如：广东省深圳市xx区xx路');
+						}
+					});	
+				});
+			})		
+		</script>
+		
+	</head>
+	<style>	
+.image_css{float:left;}
+	</style>
+<body>
+	<!--左侧分类展示start  固定-->
+	<include file="nav" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	<div class="container">
+	<div class="main center">
+        <img class="release-icon-main" src="/Public/Home/style/image/release-icon.png" alt="">
+        <div class="wave-fluid"></div>
+        <div class="release-title">发布商品</div>
+        <div class="upload-wr">
+            <div class="clone-target">
+                <div class="photo">
+                    <div><img src="" alt="" class="image"></div>
+                    <span class="close"></span>
+                </div>
+            </div>
+            <div class="photo-area init-up" id="unique_img">
+			<div class="upload-area">
+			<input id="upload" name="uploadify" type="file" multiple="true">
+					<input type="hidden" id="url" value="__URL__">
+					<input type="hidden" id="root" value="__ROOT__">
+					<input type="hidden" id="public" value="__PUBLIC__">
+			<div id="upload-queue" class="uploadify-queue"></div><div class="up-bg"></div></div>      
+			<div class="photo-caution"><span>最多上传九张图片，支持jpg、png、gif格式</span></div>
+            </div>
+        </div>
+        <div class="form-wr">
+            <form action="">
+                <div class="form-must-wr">
+                    <div class="form-item l goods-title">
+                        <div class="form-key"><span>商品名称</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input type="text" id="title" name="title" placeholder="最多25个字">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item xl goods-desc">
+                        <div class="form-key"><span>商品详情</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <textarea name="desc" id="desc" placeholder="建议填写物品用途、新旧程度、原价等信息，至少15个字"></textarea>
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-item m goods-discount pay_type">
+                        <div class="form-key"><span>交易方式</span></div>
+                        <div class="form-value" style="width: 52%;">
+                            <div class="form-input-wr">
+                                <span class="yes" data-value="1">出售</span>
+                                <span class="yes" data-value="2">交换</span>
+                                <span class="yes" data-value="3">免费赠送</span>
+                                <span class="no" data-value="4">竞拍</span>
+                                <input type="hidden" id="pay_type" name="pay_type" value="">
+                            </div>
+                        </div>
+                    </div>
+                   
+					 <div class="form-item m former_price">
+                        <div class="form-key"><span>原价</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input class="price" type="text" id="real_price" name="real_price" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item m transfer_pre">
+                        <div class="form-key"><span>转让价</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input class="price" type="text" id="pay_price" name="pay_price" value="">
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-item m action_price" style="display:none;">
+                        <div class="form-key"><span>竞拍价</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input class="price" type="text" id="action_price" name="action_price">
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-item m add_price" style="display:none;">
+                        <div class="form-key"><span>加价幅度</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input class="price" type="text" id="add_price" name="add_price">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item m goods-cat">
+                        <div class="form-key"><span>分类</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr"><span>请选择</span>
+                            <input type="hidden" id="cat" name="cat" value=""></div>
+                            <ul class="select" style="display: none;">
+							<volist name="arr" id="vo">
+								<li value="{$vo.id}"><span>{$vo.name}</span></li>
+							</volist>	
+							</ul>
+                        </div>
+                        <div class="form-value-l">
+                            <div class="form-input-l-wr">
+                                <span>请选择</span>
+                                <input type="hidden" id="cat_l" name="cat_l" value="">
+                            </div>
+							<volist name="arr" id="vol">
+									<ul class="select" id="cul{$vol.id}" style="display: none;">
+									<volist name="vol.sub" id="s_vol">
+										<li value="{$s_vol.id}"><span>{$s_vol.name}</span></li>
+									</volist>
+									</ul>
+							</volist>		
+									
+                        </div>
+                    </div>
+                    <div class="form-item m goods-discount user_status">
+                        <div class="form-key"><span>使用情况</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <span class="yes" data-value="1">全新</span>
+                                <span class="no" data-value="0">非全新</span>
+                                <input type="hidden" id="discount" name="discount" value="">
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-item m goods-discount period">
+                        <div class="form-key"><span>发布周期</span></div>
+                        <div class="form-value" style="width:40%;">
+                            <div class="form-input-wr">
+                                <span class="yes" data-value="1">7天</span>
+                                <span class="yes" data-value="2">15天</span>
+                                <span class="no" data-value="3">30天</span>
+                                <input type="hidden" id="period" name="period" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-contact">联系方式</div>
+                <div class="form-least">（至少选填一项）</div>
+                <hr class="form-sep-form clear" size="1" color="#D0E0E2">
+                <div class="form-select">
+                    <div class="form-item m">
+                        <div class="form-key"><span>微信</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input type="tel" id="weixin" name="weixin" value="">
+                            </div>
+                        </div>
+                    </div>
+					<div class="form-item m">
+                        <div class="form-key"><span>手机</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input type="tel" id="tel" name="tel" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-item m">
+                        <div class="form-key"><span>QQ</span></div>
+                        <div class="form-value">
+                            <div class="form-input-wr">
+                                <input type="text" id="qq" name="qq" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-share-wr">
+                    <label for="form-share">
+                    <input id="form-share" name="share" type="checkbox" checked="on">
+                    <span>我同意&nbsp;<a href="{:U('Release/publish_rule')}" target="_blank">商品发布规则</a></span>
+                </label></div>
+                <input type="hidden" id="school_id" value="">
+                <input type="hidden" id="user_school_id" value="">
+                <button type="button" class="form-submit" onclick="pre_release();">马上发布</button>
+            </form>
+        </div>
+    </div>
+		</div>
+
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	
+<script src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js"></script>
+        <script src="__PUBLIC__/Home/style/js/uploadify.js"></script>
+        <script src="__PUBLIC__/Home/style/js/release.js"></script>
+

@@ -1,0 +1,589 @@
+/**
+ * MTA 新版布局
+ * @author	bingzitang(唐斌)
+ */
+#header {
+	position: relative;
+	z-index: 20;
+	background: url(../images/nav.png) repeat-x 0 bottom;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, .2);
+}
+#header .header_inner {
+	position: relative;
+	z-index: 3;
+	padding-top: 10px;
+	max-width: 1440px;
+	min-width: 980px;
+	margin: 0 auto;
+}
+#header .icon,
+#header [class^="icon_"],
+#header [class*=" icon_"] {
+	display: inline-block;
+	*display: inline;
+	*zoom:1;
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	font-size: 0;
+	line-height: 0;
+	margin-right: 5px;
+	background: url(../images/webLogo.png) no-repeat;
+}
+#header .logo a {
+	display: block;
+	margin-left: 20px;
+	width: 160px;
+	height: 40px;
+	overflow: hidden;
+	text-indent: -9999em;
+	background: url(../images/webLogo.png) no-repeat;
+}
+#header .user_center {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	color: #000;
+	font-size: 12px;
+}
+#header .user_center .pic_user {
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+}
+#header .user_center a:hover {
+	text-decoration: underline;
+}
+#header .user_center .icon_user {
+	background-position: -80px 0;
+}
+#header .user_center .icon_list {
+	background-position: -80px -20px;
+}
+#header .user_center .icon_exit {
+	background-position: -80px -40px;
+}
+#header .bar {
+	margin-top: 10px;
+	height: 45px;
+	font-size: 14px;
+	background: #333944 url(../images/nav.png) repeat-x 0 bottom;
+	background-repeat: repeat-x;
+	*zoom:1;
+}
+#header .bar:after {
+	content: '.';
+	display: block;
+	clear: both;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+#header .menu {
+	position: relative;
+	width: 201px;
+	float: left;
+	z-index: 9;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+}
+
+#header .app_logo {
+	overflow: hidden;
+	position: absolute;
+	left: 24px;
+	top: 12px;
+	height: 20px;
+	line-height: 0;
+	border:1px solid #000;
+	border-radius: 3px;
+	box-shadow: inset 0 0 3px rgba(0, 0, 0, .7);
+}
+#header .app_logo img {
+	width: 20px;
+	height: 20px;
+}
+#header .app_name {
+	position: relative;
+	margin-left: 50px;
+	height: 45px;
+	line-height: 45px;
+	color: #FFF;
+	font-weight: normal;
+	cursor: pointer;
+}
+#header .app_name .icon,
+#header .app_name [class^="icon_"],
+#header .app_name [class*=" icon_"] {
+	position: relative;
+	bottom: 1px;
+	*bottom: 7px;
+}
+#header .app_name .icon_menu {
+	position: absolute;
+	right: 5px;
+	top: 15px;
+	background-position: -60px 0;
+}
+#header .menu.show .icon_menu {
+	background-position: -60px -20px;
+}
+#header .app_name strong {
+	max-width: 99px;
+	float: left;
+	font-weight: normal;
+	overflow:hidden; 
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#header .menu.show .app_logo,
+#header .menu.show .app_name {
+	opacity: .7;
+}
+#header .icon,
+#header [class^="icon_"],
+#header [class*=" icon_"] {
+	margin-left: 5px;
+}
+#header .app_name .icon_android {
+	*margin-top: 15px;
+	background-position: -40px -20px;
+}
+#header .app_name .icon_ios {
+	*margin-top: 15px;
+	background-position: -40px 0;
+}
+#header .app_name .icon_windows {
+	*margin-top: 15px;
+	background-position: -40px -40px;
+}
+#header .app_list {
+	display: none;
+	width: 199px;
+	position: absolute;
+	left: 0;
+	top: 45px;
+	background: #FFF;
+	border:1px solid #000;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+	font-size: 12px;
+}
+#header .menu.show {
+	box-shadow: inset 0 2px 5px rgba(0, 0, 0, .8);
+}
+#header .menu.show .app_list {
+	display: block;
+}
+#header .header_bar {
+	position: relative;
+}
+#header .header_bar input[type=text] {
+	width: 195px;
+	padding: 6px 2px;
+	border:0 none;
+	border-bottom: 1px solid #CCC;
+	border-radius: 0;
+}
+#header .header_bar button[type="submit"] {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 20px;
+	height: 22px;
+	text-indent: -999em;
+	overflow: hidden;
+	background: url(../images/sprite.png) -19px -197px no-repeat;
+	border: none;
+	cursor: pointer;
+}
+#header .header_inner input[type=text]:focus {
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.5);
+	border-color: #888;
+}
+#header .list {
+}
+#header .list li {
+	position: relative;
+	padding: 0 20px;
+	height: 32px;
+	line-height: 32px;
+	color: #000;
+	overflow:hidden; 
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#header .list li:hover {
+	text-shadow:0 1px 0 #FFF;
+	color: #CCC;
+}
+#header .list li .sub_menu {
+	visibility: hidden;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width:100%;
+	height: 32px;
+	font-size: 0;
+	text-align: center;
+	color: #888;
+	background: rgba(0, 0, 0, .1);
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, .1);
+}
+#header .list li:hover .sub_menu {
+	visibility: visible;
+}
+#header .list .sub_menu a {
+	display: inline-block;
+	*zoom:1;
+	*display: inline;
+	width: 32px;
+	height: 32px;
+	text-align: left;
+	overflow: hidden;
+	font-size: 0;
+	vertical-align: middle;
+	background: url(../images/new_sprite.png) no-repeat -100px 0;
+}
+#header .list .sub_menu a.ios {
+	*line-height: 0;
+	background-position: -100px -60px;
+}
+#header .list .sub_menu a.ios:hover {
+	background-position: -100px -100px;
+}
+#header .list .sub_menu a.android {
+	*line-height: 0;
+	background-position: -100px -140px;
+}
+#header .list .sub_menu a.android:hover {
+	background-position: -100px -180px;
+}
+#header .list .sub_menu a.windows {
+	*line-height: 0;
+	background-position: -100px -220px;
+}
+#header .list .sub_menu a.windows:hover {
+	background-position: -100px -260px;
+}
+#header .list .sub_menu a.top {
+	text-indent: 0;
+	font-size: 12px;
+	text-align: center;
+	background: none;
+	text-shadow: 0 0 10px rgba(255, 255, 255, .9);
+}
+#header .list li:hover {
+	
+}
+#header .footer_bar {
+	border-top: 1px solid #d8d8d8;
+}
+#header .footer_bar a {
+	height: 38px;
+	line-height: 38px;
+	width: 99px;
+	float: left;
+	text-align: center;
+	color: #3382c8;
+	background: #f5f5f5;
+}
+#header .footer_bar a.last {
+	width: 98px;
+	border-left: 1px solid #d8d8d8;
+}
+#header .footer_bar a:hover {
+	background: #FFF;
+}
+#header .nav {
+	
+}
+#header .icon, #header [class^="icon_"],
+#header [class*=" icon_"] {
+	margin-right: 5px;
+	background: url(../images/new_sprite.png) no-repeat;
+}
+#header .nav .icon_chart {
+	background-position: -20px 0;
+}
+#header .nav .icon_wechat {
+	background-position: -20px -20px;
+}
+#header .nav .icon_app {
+	background-position: -20px -40px;
+}
+#header .nav .icon_qq{
+	background-position: -20px -140px;
+}
+#header .icon_add {
+	margin-right: 1px;
+	background-position: -60px -100px;
+}
+#header .icon_right {
+	margin-right: 1px;
+	background-position: -60px -120px;
+}
+#header .icon_usertag {
+	background: url(../images/icon-user-w.png) 0 0 no-repeat;
+}
+#header .icon_tools {
+	background-position: -20px -60px;
+}
+#header .icon_game {
+	background-position: -20px -80px;
+}
+#header .icon_user {
+	background-position: -20px -100px;
+}
+#header .icon_partner {
+	background-position: -20px -120px;
+}
+#header .nav li, #header .nav a {
+	float: left;
+	height: 45px;
+	line-height: 45px;
+	color: #FFF;
+}
+#header .nav a {
+	padding: 0 60px;
+	text-align: center;
+	border-left: 1px solid #3d3f42;
+	text-decoration: none;
+	transition: all linear 0.2s;
+}
+#header .nav a:hover {
+	background: #505C74;
+	background-image: -ms-linear-gradient(top, #5e6b86, #4a566f);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5e6b86), to(#4a566f));
+	background-image: -moz-linear-gradient(top, #5e6b86, #4a566f);
+	background-image: -o-linear-gradient(top, #5e6b86, #4a566f);
+	background-image: linear-gradient(top, #5e6b86, #4a566f);
+}
+#header .nav a.first {
+	border-left:0 none;
+}
+#header .nav a.last {
+	
+}
+#header .nav a.current,
+#header .nav a.current:hover {
+	background: #3389d4;
+	background-image: -ms-linear-gradient(top, #3995e5, #3389d4);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3995e5), to(#3389d4));
+	background-image: -moz-linear-gradient(top, #3995e5, #3389d4);
+	background-image: -o-linear-gradient(top, #3995e5, #3389d4);
+	background-image: linear-gradient(top, #3995e5, #3389d4);
+}
+#header.no_nav {
+	padding-bottom: 10px;
+	background: none;
+	border-bottom: 1px solid #ccc;
+	background: #F8F8F8;
+	background-image: -ms-linear-gradient(top, #FFF, #F4F4F4);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFF), to(#F4F4F4));
+	background-image: -moz-linear-gradient(top, #FFF, #F4F4F4);
+	background-image: -o-linear-gradient(top, #FFF, #F4F4F4);
+	background-image: linear-gradient(top, #FFF, #F4F4F4);
+}
+#header.no_nav .bar {
+	display: none;
+}
+@media screen and (max-width: 1024px) {
+	#header .nav a {
+		padding: 0 40px;
+	}
+}
+
+
+/** 消息提示 */
+#message {
+	position: relative;
+	z-index: 1;
+	max-width: 1440px;
+	min-width: 980px;
+	height: 40px;
+	line-height: 40px;
+	color: #333333;
+	margin: auto;
+	text-align: center;
+	background: #ffffff;
+	border:1px solid #d5d5d5;
+	border-top: 0 none;
+	border-bottom: 0 none;
+	/*box-shadow: 0 3px 1px rgba(0, 0, 0, .07);*/
+	
+}
+#message .icon_message {
+	position: relative;
+	display: inline-block;
+	*display: inline;
+	*zoom:1;
+	font-size: 0;
+	vertical-align: middle;
+	width: 55px;
+	height: 17px;
+	top: -1px;
+	*top: 8px;
+	background: url(../images/new_sprite.png) no-repeat -180px -40px;
+}
+#message a {
+	text-decoration: underline;
+}
+#message a.close {
+	width:17px;
+	height:18px;
+	line-height:16px;
+	display:inline-block;
+	text-align:center;
+	float:right; margin:10px 8px 0 0;
+}
+#message a.close {
+	color:#888888;
+	text-decoration: none;
+}
+#message a.close:active,
+#message a.close:hover {
+	color:#fff;
+	background:#e5943f;
+	border-radius:50%;
+}
+#message .word {
+	padding-left:10px;
+	display:inline-block;
+	vertical-align:top;
+	font-size: 12px;
+}
+/** 中间内容区域 */
+#content  {
+	max-width: 1440px;
+	min-width: 980px;
+	margin: auto;
+	*zoom:1;
+	border: 1px solid #d5d5d5;
+	background: #edeef0 url(../images/bg_content.png) repeat-y 0 0;
+}
+#content:after {
+	content: '.';
+	display: block;
+	clear: both;
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+#main {
+	min-height: 800px;
+	overflow: hidden;
+	margin-left: 200px;
+	padding-bottom: 20px;
+}
+@media screen and (max-width: 1024px) {
+	#main {
+		padding-bottom: 10px;
+	}
+}
+#sidebar {
+	width: 200px;
+	float: left;
+	position: relative;
+	padding-bottom: 60px;
+	font-size: 12px;
+}
+
+#footer {
+	max-width: 1440px;
+	min-width: 980px;
+	margin: auto;
+	padding: 20px 0;
+	height: 40px;
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+	text-shadow: 0 1px 0 #FFF;
+}
+#footer p {
+	line-height: 1.6em;
+}
+#footer a {
+	color: #999;
+}
+#footer .widgets {
+	position: fixed;
+	z-index: 30;
+	right: 0;
+	bottom: 30px;
+	height: 110px;
+}
+
+#footer .support,#footer .qq_service {
+	display: block;
+	height: 33px;
+	text-indent: -999em;
+	background: url(../images/sprite_feedback.png);
+}
+#footer .support{
+	background-position: 0 -33px;
+}
+#footer .qq_service {
+	background-position: 0 0;
+}
+#footer .support:hover{
+	background-position: 0 -99px;
+}
+#footer .qq_service:hover{
+	background-position: 0 -66px;
+}
+#footer .feedback{
+	width: 35px;
+	height: 66px;
+}
+#footer .feedback:hover{
+	width: 98px;
+	-webkit-transition:height .2s;
+	transition:width .2s;
+}
+
+#footer .top {
+	position: fixed;
+	right: 0;
+	margin-top: 10px;
+	display: block;
+	width: 35px;
+	height: 34px;
+	text-indent: -999em;
+	overflow: hidden;
+	background: url(../images/sprite_feedback.png) 0 -132px no-repeat;
+}
+
+
+/* 状态：无侧栏单页面 */
+#content.mta_full_page {
+	padding-bottom: 20px;
+	background: #FFF;
+}
+#content.mta_full_page #sidebar
+/* #content.mta_full_page #main */ {
+	display: none;
+}
+
+#content.mta_full_page #main{
+	margin-left: 0
+}
+
+
+.pay_transfor_chart .gri_wrapper table th{
+	text-align: center;
+}
+
+.pay_transfor_chart .gri_wrapper table tbody td{
+	padding: 2px 0
+}
+
+.pay_transfor_chart .gri_wrapper table tbody td{
+	text-align: center
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<!--描述-->
+		<meta name="description" content="" />
+		<!--关键字-->
+		<meta name="keywords" content="" />
+		<title>旧淘 - 分类列表</title>
+	</head>
+	<body>
+		<table cellspacing="0" cellpadding="0" border="0">
+			<tr align="center">
+				<td>名称</td>
+				<td>分类图标</td>
+				<td>菜单栏图标</td>
+				<td>是否隐藏</td>
+				<td>是否推荐/热门</td>
+				<td>排序</td>
+				<td>操作</td>				
+			</tr>
+			<volist name="listInfo" id="vo">	
+				<tr>
+					<td>{$vo.name}</td>
+					<td><img src="{$vo.cat_img_url}" width="60" height="60"/></td>
+					<td><img src="{$vo.little_img_url}" width="60" height="60"/></td>	
+					<td align="center" ><eq name="vo.is_hidden" value="2">是<else/>否</eq></td>
+					<td align="center" ><eq name="vo.is_status" value="2">是<else/>否</eq></td>
+					<td align="center" >{$vo.ord_id}</td>					
+					<td align="center" >&nbsp;<a href="/Admin/Article/catAdd/id/{$vo.id}">修改</a>&nbsp;|&nbsp;<a href="/Admin/Article/catDel/id/{$vo.id}">删除</a>&nbsp;</td>					
+				</tr>
+				<neq name="vo.sub" value="">
+					<volist name="vo.sub" id="v">
+						<tr>
+							<td>&nbsp;&nbsp;&nbsp;|_{$v.name}</td>
+							<td><img src="{$v.cat_img_url}" width="60" height="60"/></td>
+							<td><img src="{$v.little_img_url}" width="60" height="60"/></td>	
+							<td align="center" ><eq name="v.is_hidden" value="2">是<else/>否</eq></td>
+							<td align="center" ><eq name="v.is_status" value="2">是<else/>否</eq></td>					
+							<td align="center" >{$v.ord_id}</td>
+							<td align="center" >&nbsp;&nbsp;&nbsp;<a href="/Admin/Article/catAdd/id/{$v.id}">修改</a>&nbsp;|&nbsp;<a href="/Admin/Article/catDel/id/{$v.id}">删除</a>&nbsp;</td>					
+						</tr>
+					</volist>
+				</neq>
+			</volist>
+		</table>
+	</body>
+</html>

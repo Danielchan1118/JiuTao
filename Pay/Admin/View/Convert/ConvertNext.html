@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>兑换中心</title>
+
+</head>
+
+<body>
+<h1 ><a href="">兑换中心</a></h1>
+<h1 ><a href="{:U('Convert/ConvertAdd')}">添加顶级栏目</a></h1>
+
+<table border="1" width="500">
+<tr>
+	<td>图片</td>
+	<td>兑换名称:</td>
+	<td>商品名称:</td>
+	<td>添加</td>
+</tr>
+<volist name="test" id="vol">
+	<tr>
+		<td><img src="../../../{$vol.image}"></td>
+		<td>{$vol.convert_goods}</td>
+		<td>{$vol.gold}</td>
+		<td><a href="{:U('Convert/ConvertAdd?id='.$vol[id])}">添加</a></td>
+	</tr>
+</volist>
+</table>
+
+</body>
+</html>

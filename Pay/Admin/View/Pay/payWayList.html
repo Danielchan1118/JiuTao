@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body>
+<div class="bodytitle"><div id="h_title">充值方式列表</div></div>
+
+    <div class="subbox">  
+        <div class="bui_content_b">
+            <div class="bui-content">
+                    <table  cellspacing="0" class="table table-bordered" >
+                          <tr class="phb_name phb_back phb_bors atim_tr">
+                            <th>序号</th>
+                            <th>排序</th>
+                            <th>标签</th>
+                            <th>渠道名称</th>
+                            <th>手续费</th>
+                            <th>渠道描述</th>
+                            <th>添加时间</th>
+                            <th>修改时间</th>
+                            <th>是否显示</th>
+                            <th>是否禁用</th>
+                            <th>添加者</th>
+                            <th>操作</th>  
+                          </tr>
+                          <volist name='payList' id='v' key="key">
+                           <tr class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+                            <td>{$v.cid}</td>
+                            <td>{$v.sort}</td>
+                            <td>{$v.tag}</td>
+                            <td>{$v.payname}</td>
+                            <td>{$v.fee}</td>
+                            <td>{$v.content}</td>
+                            <td>{$v.addtime|date='Y-m-d',###}</td>
+                            <td>{$v.modifytime|date='Y-m-d',###}</td>
+                            <td><eq name="v.isdisplay" value="1">显示<else />不显示</eq></td>
+                            <td><eq name="v.status" vlaue="1">启用<else />不启用</eq></td>
+                            <td>{$v.operater}</td>
+                            <td><a href="{:U('pay/payWayEdit?id='.$v['id'])}">修改</a>&nbsp;|&nbsp;<a href="{:U('pay/payWayDel?id='.$v['id'])}">删除</a></td>  
+                          </tr>
+                          </volist>
+                        </table>
+                        {$Page}
+                    
+            </div>
+        </div>
+    </div>
+</body>
+
+</body>
+</html>

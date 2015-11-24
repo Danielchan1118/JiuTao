@@ -1,0 +1,142 @@
+/**
+ * 注册页面
+ * @author	bingzitang(唐斌)
+ */
+#content.mta_full_page {
+	background: #EDEEF0;
+}
+#register .content {
+	padding: 20px 50px 50px 50px;
+}
+#register .step {
+	margin-bottom: 20px;
+	width: 964px;
+	height: 40px;
+	background: url("../images/bg_register_step.png") 0 0 no-repeat;
+	text-indent: -999em;
+}
+#register .step_2 {
+	background-position: 0 bottom;
+}
+
+#register .operation_logo{ float:left; margin-top: 8px;}
+#register .operation_logo .pic,
+#register .operation_logo .opt{ float:left;}
+#register .operation_logo .pic{ margin-right:10px; }
+#register .operation_logo_help {
+	margin-top: 5px;
+	color: #666;
+}
+#register .r_tips {
+	max-width: 640px;
+}
+#register .appkey_info {
+	max-width: 640px;
+	margin-top: 10px;
+	color: #666;
+	font-size: 14px;
+}
+#register .appkey_info .appkey_code {
+	padding: 10px;
+	color: #000;
+	background: #EDEEF0;
+}
+#register .appkey_info .appkey_code input {
+	color: #000;
+}
+#register .appkey_info .appkey_code b {
+	width: 5px;
+	height: 1px;
+	margin:  0 3px;
+	display: inline-block;
+	*display: inline;
+	*zoom:1;
+	background: #000;
+	vertical-align: middle;
+}
+#register .appkey_info p {
+	padding: 8px 0;
+}
+#register .div_tabs {
+	margin-top: 10px;
+}
+#register .dev_help {
+	margin-top: 10px;
+	max-width: 640px;
+	font-size: 14px;
+	border-left: 1px solid #3794E3;
+}
+#register .dev_help p strong {
+	color: #3794E3;
+}
+#register .dev_help dt {
+	position: relative;
+	height: 30px;
+	padding-left: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	font-weight: bold;
+}
+#register .dev_help dt strong {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	left: -15px;
+	top: 0;
+	margin-right: 8px;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid #3794E3;
+	background:#FFF;
+	box-shadow: 0 0 5px 5px #FFF;
+}
+#register .dev_help dd {
+	padding: 10px 30px;
+	color: #888;
+}
+#register .dev_help p {
+	padding: 10px 0;
+}
+
+#register textarea.code {
+	width: 460px;
+}
+#register .dev_help pre {
+	padding: 8px 15px;
+	background: #f8f8f8;
+	border-radius: 5px;
+	border: 1px solid #d4d4d4;
+	overflow-x: auto;
+}
+#register .select-append .dropdown {
+	max-height: 300px;
+	min-width: 357px;
+	padding: 5px;
+	overflow-x: hidden;
+}
+.mod_dialog_register_qq {
+	margin: 20px;
+	min-width: 450px;
+	max-height: 700px;
+	overflow: auto;
+}
+.mod_dialog_register_qq table {
+	
+}
+.mod_dialog_register_qq table td {
+	padding: 5px 5px 5px 0;
+}
+.ui_checkboxs .register_bookmark {
+	display: none;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 29px;
+	height: 12px;
+	font-size: 0;
+	background: url(../images/icon-mark1.png) no-repeat;
+}
+.ui_checkboxs .is_register .register_bookmark {
+	display: block;
+}

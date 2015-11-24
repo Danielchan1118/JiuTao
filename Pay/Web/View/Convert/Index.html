@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/Public/jquery/jquery-1.7.2.min.js"/></script>
+<title> 兑换中心 </title>
+<style type="text/css">
+	@charset "utf-8";
+	/* CSS Document */
+	*{ margin:0; padding:0;}
+	body{ font-family:"Times New Roman",Georgia,Serif; background:#f5f5f5;}
+	.clear{ clear:both;}
+	ul li{ list-style:none;}
+	a{ color:#000; text-decoration:none;}
+	.ml10{ margin-left:10px;}
+	img{ float:left;}
+	.mt15{margin-bottom:15px;}
+	.ml20{ margin-left:20px;}
+	
+	.container{width: 100%;max-width: 600px; margin: auto;}
+	.goldinfo{width:100%; height:20%; padding-top:20px; background:#FFF; float:left;}
+	.glodcount{width:100%; height:20px; font-weight:bold; font-size:18px; color:#e96826; float:left;}
+	.glods{width:100%; height:20px; margin-top:10px; float:left;}
+	.glod_font{ width:100px; height:10%; margin-left:20px; float:left;}
+	.convert_bottom{width:100%;height:80%; background:#f0f0f0; float:left;}
+	.convert_bottom ul li{width:100%; height:10%; line-height:40px;  border-bottom:1px solid #d7d7d7; float:left;}
+	.contvert_name{width:35%; height:10%; padding:20px; float:left;}
+	.convert_bottom ul li img{ margin-top:10px;  margin-left:20px;}
+	.contvert_top{ width:100%; height:20%; font-size:16px; color:#FFF; font-weight:bold; background:#fd6a34; float:left;}
+	.convert_sub{width:50%; height:30px; padding-top:15px; color:#FFF; background:url(/Public/youmi/image/2322.jpg) no-repeat; padding-left:35px; float:left;}
+	.convert_right{ padding-top:15px;  float:right;}
+	.contvert_top img { padding-top:6px;  float:right;}
+	
+	.contvert_right{width:121px; color:#FFF; margin-top: 20px; padding-left:10px; background:#fd6a34; float:right;}
+</style>
+</head>
+
+<body>
+<div class="container" id="sub" >
+    <div class="goldinfo">
+        <div class="glodcount ml20">{$goldcount}</div>
+        <div class="glods ml20 mt15">
+            <img src="/Public/youmi/image/umeng_socialize_action_like.png" width="20px" height="20px" /> 
+            <span class="glod_font">可兑换大米</span>
+        </div>	
+    </div>
+    
+    <div class="convert_bottom" >
+        <ul class="ml10">
+            <volist name="convert_list" id="vo">
+                <li id="{$vo.id}"><img src="/{$vo.image}" /> <span class="contvert_name"> {$vo.convert_name} </span> </li>
+            </volist>
+            <li><a href="#" class="ml20"> 兑换记录 >> </a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container" id="con_sub" style="display:none;">
+ 	<div class="contvert_top">
+ 		<a href="javascript:history.go(-1);" > <span class="convert_sub"> 兑换迅雷会员 </span> <img src="/Public/youmi/image/221.jpg"/> </a> 
+        <span class="convert_right"> 2000 </span>
+    </div>
+         
+    <div class="convert_bottom" >	
+        <ul></ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(".ml10 li").click(function(){
+	var	id = $(this).attr("id");
+
+	$.ajax({
+		type:'GET',
+		data:'id='+id,
+		url:"/Web/Convert",
+		dataType: 'json',
+		success:function(data){
+			num = data.sub_list.length;
+			html='';
+			for(i=0;i<num; i++){
+				html+='<li onclick="convert('+id+','+data.sub_list[i].id+')" cid="'+data.sub_list[i].id+'"><img src="/'+data.sub_list[i].image+'" /> <span class="contvert_name">'+data.sub_list[i].convert_name+'</span> <span class="contvert_right"> '+data.sub_list[i].gold+'万 </span> </li>';
+			}
+			html+='<li><a href="#" class="ml20"> 兑换记录 >> </a></li>';
+			$("#con_sub ul").html(html);
+			$(".convert_sub").html(data.name);
+		}
+		
+	});
+
+	if(id){
+		$("#sub").css("display","none");
+		$("#con_sub").css("display","block");
+	}else{
+		$("#sub").css("display","bloc;");
+		$("#con_sub").css("display","none");	
+	}
+});
+
+function convert(id,cid){
+	   window.location.href="/Web/Convert/ConvertInfo/id/"+id+"/cid/"+cid; 
+}
+
+
+$("#con_sub ul li #cn").click(function(){
+	alert("sssss");
+
+});
+
+</script>
+
+</body>
+</html>

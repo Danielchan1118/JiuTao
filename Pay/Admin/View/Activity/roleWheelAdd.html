@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>大转盘规则添加编辑</title>
+    <link href='/Public/youmi_admin/style/css/css.css' rel="stylesheet" type="text/css" />
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" />
+	<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+	<style type="text/css">
+	 .atrCat { list-style-type:none;} 
+	 .atrCat li { float: left;  border-style:solid; border-width: 1px; color: #686868; margin-right: 2px; padding: 2px 5px; text-decoration: none;} 
+	 .atrCat li:hover {  float: left;  border-style:solid; border-width: 1px; color: #686868; margin-right: 2px; padding: 2px 5px; text-decoration: none; background-color: #3690dd; cursor:pointer;} 
+	 #koufen { color:red; padding-left: 145px;}
+	</style>
+</head>
+<body>
+<!-- body title -->
+	<div class="bui_head_bor">
+	  <div class="bui_head_t">
+		<div class="bodytitle"><img src="/Public/youmi/style/image/back.png" />&nbsp;&nbsp;大转盘规则</div>
+	  </div>
+	</div>
+	 
+	<div class="subbox">  
+		<div class="bui_content_b">
+			<div class="bui-content"> 
+				<form action="{:U('Admin/Activity/roleWheelAdd?id='.$info['wheel_id'])}" method="post" >
+					<table cellspacing="0" class="table table-bordered">
+						<tr>
+							<td>轮盘奖励名：</td>
+							<td><input type="text" name="name" value="{$info.wheel_name}"/><span style="color:red;">*注：必填</span></td>
+						</tr>
+						<tr>
+							<td>倍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 率：</td>
+							<td><input type="text" name="gliva" value="{$info.wheel_v}"/><span style="color:red;">*注：必填</span></td>
+						</tr>
+						<tr>
+							<td>奖 励&nbsp;积 分：</td>
+							<td id="koufen"><input type="text" name="getcoin" value="{$info.wheel_coin}"/><span>*注：必填 扣分请填写如例：-1000</span><td>
+						</tr>
+						<tr>
+							<td>前端返回值：</td>
+							<td><input type="text" name="return_id" value="{$info.num_return}"/><span style="color:red;">*注：必填</span></td>
+						</tr>
+						<tr><td>&nbsp;&nbsp;</td><td><input type="submit" value="提交"></td></tr> 
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+

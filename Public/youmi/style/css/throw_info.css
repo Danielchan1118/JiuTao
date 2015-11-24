@@ -1,0 +1,66 @@
+#ChinaMap {
+	padding-right: 100px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	margin: 0px auto;
+	width: 650px;
+	float:left;
+	padding-top: 10px;
+	position: relative;
+	text-align: center;
+}
+#treeMap{
+	float:left;
+	height:500px;
+		height:500px;
+	}
+
+.controls .dropdown {
+    font-size: 12px;
+    font-weight: 400;
+    position: absolute;
+    z-index: 100;
+    display: none;
+    float: left;
+    margin: 2px 0px 0px;
+    list-style: none outside none;
+    background-color: #FFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    text-align: left;
+    max-height: 312px;
+    min-width: 415px;
+    overflow-x: hidden;
+    overflow: auto;
+	margin-left: 41px;
+}
+.controls .dropdown .select-list {
+    width: 410px;
+    white-space: normal;
+    padding-bottom: 1px;
+	padding-left: 5px;
+}
+.controls .dropdown label {
+    line-height: 30px;
+}
+.controls .dropdown .select-list a.radio-box {
+    height: 32px;
+    line-height: 30px;
+    width: 138px;
+    text-align: left;
+    margin: 0px -5px -1px 0px;
+    font-size: 12px;
+    z-index: 0;
+    padding: 0px 5px;
+    background: none repeat scroll 0% 0% #FFF;
+    display: inline-block;
+    color: #666;
+}
+.controls .dropdown .select-list a.radio-box:link, a.radio-box:visited {
+    
+    background:#fff;
+    border: 1px solid #DFE3E9;
+    text-decoration: none;
+}
+.controls .dropdown .select-list a:hover{color:red; }

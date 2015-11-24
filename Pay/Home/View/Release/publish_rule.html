@@ -1,0 +1,120 @@
+<include file="head" />
+		<title>旧淘 - 低碳环保的生活方式 - 最安全方便二手市场</title>
+		<!--<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/> 	 
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/index.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/detail.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/release.css"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/uploadify.css"/>
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js"></script>	
+			
+
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/rrshare.css"/>  -->
+    
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/periphery.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/release.css"/>
+	<link rel="stylesheet" href="__PUBLIC__/Home/style/css/uploadify.css"/>		
+	<script src="__PUBLIC__/Home/style/js/jquery.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/Home/style/js/jquery.uploadify.min.js" type="text/javascript"></script>
+		<script type="text/javascript">			
+			$(function(){
+				$("#address").blur(function(){
+					var ares = $(this).val();
+					if(ares == ''){
+						alert('商家地址不能为空');
+						return false;
+					}
+					$('#er_ads').html('');
+					// 百度地图API功能
+					// 创建地址解析器实例
+					var myGeo = new BMap.Geocoder();
+					// 将地址解析结果显示在地图上,并调整地图视野
+					myGeo.getPoint(ares, function(point){
+						if (point) {
+							$('#lon').val(point.lng);
+							$('#lat').val(point.lat);
+						}else{
+							$('#er_ads').html('请用输入规范地址,如：广东省深圳市xx区xx路');
+						}
+					});	
+				});
+			})		
+		</script>
+		
+	</head>
+	<style>	
+.image_css{float:left;}
+	</style>
+<body>
+	<!--左侧分类展示start  固定-->
+	<include file="nav" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+    <div class="container">
+    <div class="main center">
+        <div class="rule-wrapper center">
+            <div class="rule-hd center">
+                <div class="l-triangle"></div>
+                <h2>商品发布规则</h2>
+                <div class="r-triangle"></div>
+            </div>
+            <table class="rules center">
+                <thead>
+                <tr>
+                    <td class="r-order"></td>
+                    <th>发布规则</th>
+                    <th>惩罚措施</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="r-order"><span>1</span></td>
+                    <td class="r-rule">您发布的商品30天后将自动过期</td>
+                    <td class="r-punishment"></td>
+                </tr>
+                <tr>
+                    <td class="r-order"><span>2</span></td>
+                    <td class="r-rule">同一类型的商品不得多次发布，建议发在一个商品当中。每张图片可以对应一件商品，在商品详情中描述每个商品的价格。</td>
+                    <td class="r-punishment">一经发现将删除重复商品，只保留一个</td>
+                </tr>
+                <tr>
+                    <td class="r-order"><span>3</span></td>
+                    <td class="r-rule">不得在本平台上发布商品图片与实物不一致的商品，若引用网上图片第一张必须为实物拍摄</td>
+                    <td class="r-punishment">一经发现将删除发布商品</td>
+                </tr>
+                <tr>
+                    <td class="r-order"><span>4</span></td>
+                    <td class="r-rule">不得在本平台上发布带有虚假诈骗信息的商品</td>
+                    <td class="r-punishment">一经查证将删除发布内容，并且永久封号</td>
+                </tr>
+                <tr>
+                    <td class="r-order"><span>5</span></td>
+                    <td class="r-rule">不得在本平台上密集发布新商品</td>
+                    <td class="r-punishment">一经发现将视作广告，删除全部商品并封号</td>
+                </tr>
+                <tr>
+                    <td class="r-order"><span>6</span></td>
+                    <td class="r-rule">不得在本平台上发布违法商品</td>
+                    <td class="r-punishment">一经查证将删除发布内容，并且永久封号</td>
+                </tr>
+                <tr>
+                    <td class="r-order"><span>7</span></td>
+                    <td class="r-rule">不得在本平台上发布与商品无关信息</td>
+                    <td class="r-punishment">一经发现将删除发布内容，并且永久封号</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="end-line"></div>
+        </div>
+    </div>
+</div>
+
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	
+<script src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js"></script>
+        <script src="__PUBLIC__/Home/style/js/uploadify.js"></script>
+        <script src="__PUBLIC__/Home/style/js/release.js"></script>
+

@@ -1,0 +1,63 @@
+<include file="head"  />
+		<title>旧淘 - 低碳环保的生活方式 - 最安全方便二手市场</title>
+		<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/>   	
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/index.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/lib/animate.css?v=201412231400"/>
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js?v=201412231400"></script>
+	</head>
+<body >
+	<!--左侧分类展示start  固定-->
+	<include file="nav" catList="{$catList}" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	<div class="container">
+		<div class="main center">
+			<div class="label-wr center clearfix">
+				<div id="nav-labels">
+					<a id="commend" class="labels cur" href="{:U('/Index/index')}">最新发布</a> 
+					<a id="new_pro" class="labels " href="{:U('/Index/nearList')}">附近</a>
+				</div>
+			</div>
+			<div class="item-list">
+				<ul class="items clearfix" >
+				<!--循环start-->
+				<volist name="arrPayList" id="vo">
+					<li class="item">
+						<a href="{:U('Home/Goods/goodsDetail?id='.$vo['id'])}" class="img" title="{$vo.title}" target="_blank"><img src="{$www}{$vo.image_url}" alt="{$vo.title}"/></a>
+						<div class="info">
+							<neq name="vo.biddata" value="">
+							<div class="price">{$vo.biddata.current_price}</div>
+							<else/>
+							<div class="price">{$vo.real_price}</div>
+							</neq>
+							<div class="name">
+								<a href="{:U('Home/Goods/goodsDetail?id='.$vo['id'])}" title="{$vo.title}" target="_blank">{$vo.title}</a>
+								
+							</div>
+							<div class="department">
+								<span>{$vo.nickname|default="小淘"}</span>
+								<span href="/" style="background-color: #ffbb45;color: #FFFFFF;padding: 3px 8px;border-radius: 15px;font-size: 13px;float: right;">
+									<eq name="vo.pay_type" value="1">想卖</eq><eq name="vo.pay_type" value="2">交换</eq><eq name="vo.pay_type" value="3">免费赠送</eq><eq name="vo.pay_type" value="4">竞拍</eq>
+								</span>
+							</div>
+							<div class="school"><span>{$vo.location|default="火星"}</span></div>
+							<if condition="$vo['period_status'] ==1">
+							<div  style="position: absolute;top: 195px;margin-left: 27px;"><img src="/Public/Home/style/image/overdue.png"/></div>
+							</if>
+						</div>
+					</li>&nbsp;				
+				</volist>
+					<!--循环end-->
+					<li class="item fixed"></li>
+					<li class="item fixed"></li>
+					<li class="item fixed"></li></ul>
+			</div>
+			<div class="pages">
+				{$page}
+			</div>
+		</div>
+	</div>
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	

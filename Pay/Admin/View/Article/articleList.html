@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta charset="utf-8">
+<title>资讯列表</title>
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body style="background:#EDEEF0"> 
+<div class="bodytitle">
+	<div id="h_title">资讯列表</div>
+	<div class="add_cloum"><button type="button" id="newsedit" class="change_back"> 添加资讯 </button></div>
+</div>
+
+<div class="subbox">  
+<div class="bui_content_b">
+	<div class="bui-content">
+			<table cellspacing="0" class="table table-bordered">
+			  <thead>
+				
+				<tr class="phb_name phb_back phb_bors atim_tr">
+				  <th width="15"></th>
+				  <th>标题名称</th>
+				  <th>作者</th>
+				  <th>外部链接</th>
+				  <th>添加时间</th>
+				  <th>是否显示</th>
+				  <th>排序</th>
+				  <th>操作</th>
+				</tr>
+			  </thead>
+			  <tbody>
+			<volist name="articleList" id="v" key="key">
+			<tr align="center" id="hidd{$v.id}" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+			  <td><input value="{$v.id}" name="ordercheck" data-check-data="order{$v.id}" type="checkbox"/></td>
+			  <td>{$v.title}</td>
+			  <td>{$v.author}</td>
+			  <td>{$v.link}</td>
+			  <td><gt name="v.modify_time" value="0">{$v.modify_time|date="Y-m-d",###}</gt></td>
+			  <td><eq name="v.status" value="0">是<else />否</eq></td>
+			  <td>{$v.sort}</td>
+			  <td><span > <a href    ="{:U('Article/articleEdit?id='.$v['id'])}">修改</a>&nbsp;|&nbsp; <a href="javascript:;" id="onedel" delid="{$v.id}">删除</a></span></td>
+			 </tr>
+		  </volist>   
+			  </tbody>
+			</table>
+			
+			<div id="checkbox_class">
+			  <ul class="toolbar pull-left">
+				<li><label class="checkbox" for="check_box"><input type="checkbox" data-check="uncheck"><a href="javascript:;">全选</a></label></li>
+				<li><p><button class="button change_back" id="alldel"> 批量终止 </button></p></li>
+			  </ul>
+				<div class="pages_css">
+				{$Page}
+				</div>
+			</div>
+	</div>
+</div>
+</div>
+<script src="/Public/youmi/js/WeiZhuan.js" type="text/javascript"></script> 
+<script type="text/javascript">
+	$("#newsedit").click(function(){
+		window.location.href="{:U('Article/articleEdit')}";
+	});
+  //需要使用的方法放到init,如果后面跟一个参数，框架内部会实例化
+  WeiZhuan.init({'init':'Check,AllDel,OneDel'});
+  var AjaxUrl = {
+    OrderDel : "{:U('/Admin/Article/allDel')}",
+  };
+
+</script>
+
+
+

@@ -1,0 +1,125 @@
+	<!--右侧统计资料客户端start 固定-->
+	<aside>
+		<if condition="$userinfo.name eq null">
+			<a class="release-button" href="javascript:void(0);" onclick="alert('登录后才可以发布商品哦');">我要发布</a>
+		<else/>
+			<a class="release-button" href="{:U('Release/release')}" >我要发布</a>
+		</if>
+		<div class="helped">
+			<span class="helpers">{$helpbody}</span>
+		</div>
+		<div class="qrcode-wr">
+			<img src="__PUBLIC__/Home/style/image/new_web_qrcode.png" alt="下载APP二维码"/>
+		</div>
+		<h2 class="qqgroup">用户交流群: 241357698</h2>
+		<div class="fl-wrapper clearfix">
+			<div class="wx-follow">
+				<a href="javascript:void(0);" class="fl-icon">
+					<img src="__PUBLIC__/Home/style/image/weixin-fl.png"/>
+				</a>
+				<div class="wx-fl-qrcode">
+					<p>关注我</p><img src="__PUBLIC__/Home/style/image/wx-fl-qrcode.png" /><p>旧淘</p>
+					<div class="dc-dot"></div>
+				</div>
+			</div>
+			<div class="sina-follow">
+				<a href="http://weibo.com/u/5093741186?topnav=1&wvr=6&topsug=1" class="fl-icon" target="_blank" title="旧淘官方微博">
+					<img src="__PUBLIC__/Home/style/image/sina-fl.png"/>
+				</a>
+			</div>
+		</div>
+	</aside>
+	<!--右侧统计资料客户端end 固定-->
+	<!--顶部搜索框 start 固定-->
+	<header class="ease2">
+		<a href="{$www}"><img class="logo ease2" src="__PUBLIC__/Home/style/image/logo.png" alt="旧淘"/></a>
+		<div class="header-main center ease2">
+			<a href="{$www}" class="slogan">
+				<h1 class="s-main">旧淘</h1>
+				<div class="s-submain">最安全方便的二手市场</div>
+				<img src="__PUBLIC__/Home/style/image/slogan.png" alt="旧淘最安全方便的二手市场"/>
+			</a>
+			<div class="search-box-wr ease2">
+				<form class="search-box center" action="{:U('/Goods/search')}" method="get">
+					<button type="submit" class="search-submit">搜索</button>
+					<div class="input-wr">
+						<img class="search-icon" src="__PUBLIC__/Home/style/image/search-icon.png" alt="search"/>
+						<div class="search-input">
+							<input name="keyword" id="keyword" x-webkit-speech type="text" placeholder="搜索你想要的旧货"/>
+						</div>
+					</div>
+				</form>
+				<div class="search-hots center ease2">
+					<span>热门：</span>
+					<volist name="hotCatList" id="vo">
+						<a class="hots" href="{:U('/Goods/goodsList?id='.$vo['id'])}" title="{$vo.name}">{$vo.name}</a>
+					</volist>
+					<a class="hots" href="{:U('/Goods/goodsList?goodstype=3')}" title="赠送">赠送</a>
+				</div>
+			</div>
+				
+				<neq name="userinfo" vlaue="NULL">
+					<div class="log-reg ease2">
+						<div id="have_login" class="clearfix">
+							<div id="person_info" class="clearfix">
+								<a href="/UserCenter"><img class="avatar" src="{$userinfo.head_img_url}" alt="头像"></a>
+								<div class="person_name">{$userinfo.name}</div>
+							</div>
+							
+							<img class="login_border" src="__PUBLIC__/Home/style//image/login_border.png"  style="display: none;">
+							<div class="login_slider" style="display: none;">
+							<h3>嗨，<span>{$userinfo.name}</span></h3>
+							<ul>
+								<li><a href="/UserCenter">个人中心</a></li>
+								<li><a href="/UserCenter/collect">我的收藏</a></li>
+								<li><a href="/Login/loginQuit">退出登录</a></li>
+							</ul>
+							</div>
+							
+						</div>
+					</div>
+				<else />
+					<div class="log-reg ease2">
+						<div class="button" data-type="l">登录</div>
+					</div>
+				</neq>	
+		</div>
+	</header>
+	<!--顶部搜索框 end 固定-->	
+	<!--底部start 固定-->
+	<footer>
+		<img class="footer-tri" src="__PUBLIC__/Home/style/image/footer-tri.png" alt=""/>
+		<div class="friend-links">
+			<div class="links-title center">友情链接</div>
+			<ul class="links-wr center">
+				<volist name="lists" id="vol">
+					<li ><a href="{$vol.links}" target="_blank" class="links">{$vol.name}</a></li>
+				</volist>
+			</ul>
+		</div>
+		<div class="site-msg line1">
+			<span class="report">粤ICP备14029663号-2</span>
+			<span class="power">&nbsp;Powered by <a href="javascript:void(0);" >W.Y.R</a></span>
+		</div>
+		<div class="site-msg line2">
+			<a class="contact" href="javascript:void(0);" >联系我们</a>
+			<a class="contact" href="javascript:void(0);" >加入我们</a>
+		</div>
+	</footer>
+	<!--底部end 固定-->
+	<!--登陆窗口start 固定-->	
+	<div class="login-cover">
+		<div class="login-wr">
+			<div style="margin-top: 320px">
+				<a href="/Home/Login/weiboLogin"><div class="webo login_css"></div></a>
+				<a href="/Home/Login/wechat"><div class="wechat login_css"></div></a>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+	<!--登陆窗口end 固定-->
+	<script src="__PUBLIC__/Home/style/js/common.js?v=201412231400"></script>
+	<script src="__PUBLIC__/Home/style/js/add.js?v=201412231400"></script>
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=25658961" charset="UTF-8"></script>
+</body>
+</html>

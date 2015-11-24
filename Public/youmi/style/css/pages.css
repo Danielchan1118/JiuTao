@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+DIV.sabrosus {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 3px; PADDING-TOP: 3px; TEXT-ALIGN: center
+}
+DIV.sabrosus A {
+	BORDER-RIGHT: #d6d6d6 1px solid; PADDING-RIGHT: 5px; 
+	BORDER-TOP: #d6d6d6 1px solid; PADDING-LEFT: 5px; 
+	PADDING-BOTTOM: 2px; BORDER-LEFT: #d6d6d6 1px solid; 
+	COLOR: #686868; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; 
+	BORDER-BOTTOM: #d6d6d6 1px solid;
+	 TEXT-DECORATION: none;
+}
+DIV.sabrosus A:hover {
+	BORDER-RIGHT: #2b66a5 1px solid; BORDER-TOP: #2b66a5 1px solid; BORDER-LEFT: #2b66a5 1px solid; COLOR: #000; BORDER-BOTTOM: #2b66a5 1px solid; BACKGROUND-COLOR: lightyellow
+}
+DIV.pagination A:active {
+	BORDER-RIGHT: #2b66a5 1px solid; BORDER-TOP: #2b66a5 1px solid; BORDER-LEFT: #2b66a5 1px solid; COLOR: #000; BORDER-BOTTOM: #2b66a5 1px solid; BACKGROUND-COLOR: lightyellow
+}
+DIV.sabrosus SPAN.current {
+	BORDER-RIGHT: navy 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: navy 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; PADDING-BOTTOM: 2px; BORDER-LEFT: navy 1px solid; COLOR: #fff; MARGIN-RIGHT: 2px; PADDING-TOP: 2px; BORDER-BOTTOM: navy 1px solid; BACKGROUND-COLOR: #3690dd
+}
+

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body>	
+
+<div class="bodytitle">
+	<div id="h_title">兑换列表</div>
+	<div class="margin_bottom">
+	<form action="{:U('UserRecord/ConvertRecords')}" method="post" enctype="multipart/form-data">
+		<span class="span-right-space">用户名：<input type="text" name="username" value="{$username}" class="input-back-bor">  </span>
+		<span class="span-right-space">
+			  兑换状态： <select name="status" class="input-back-bor" ><option value="0">-请选择-</option><option value="1" <if condition="$status eq 1" > selected </if> >兑换成功</option><option value="2" <if condition="$status eq 2" > selected </if>>兑换中</option><option value="3" <if condition="$status eq 3" > selected </if>>兑换失败</option></select>
+		</span>
+		<span class="span-right-space"><input type="submit" name="do_sumbit" value="提交" class="change_back"></span>
+		<span class="span-right-space"><i class="lr1">总金币{$convert_counts}万 </i></span>
+	</form>
+	</div>
+</div>
+
+<div class="subbox">  
+	<div class="bui_content_b">
+		<div class="bui-content">
+			<table cellspacing="0" class="table table-bordered">
+				<tr class="phb_name phb_back phb_bors atim_tr">
+				    <th></th>
+					<th height="23"> 序号 </th>
+					<th> 用户 </th>
+					<th> 兑换名称 </th>
+					<th> 消耗金币 </th>
+					<th> 兑换得到的礼品 </th>
+					<th> 兑换状态 </th>
+					<th> 提交时间 </th>
+				    <th> 操作 </th>
+				</tr>
+			    <volist name="convert" id="vo" key="key">
+				<tr id="hidd{$vo.id}" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+					<td><input value="{$vo.id}" name="ordercheck" data-check-data="order{$v.id}" type="checkbox"/></td>
+					<td height="23">{$vo.cid}</td>
+					<td>{$vo.username}</td>
+					<td>{$vo.convert_name}</td>
+					<td>{$vo.expend_coin}万</td>
+					<td>{$vo.convert_get}</td>
+					<td>
+						<switch name="vo.status">
+							<case value="1"><font color='red'>兑换成功</font></case>
+							<case value="2"><font color='green'>兑换中</font></case>
+							<case value="3"><font color=''>兑换失败</font></case>
+						</switch>
+					</td>
+					<td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+					<td><span> <a href="javascript:;" id="shows" showid="{$vo.id}"> 查看 </a> <a href="javascript:;" id="onedel" delid="{$vo.id}" > 删除 </a></span> </td>
+				</tr>
+			    </volist>
+			</table>
+			<div id="checkbox_class">
+				<ul class="toolbar pull-left">
+					<li><label class="checkbox" for="check_box"><input type="checkbox" data-check="uncheck"><a href="javascript:;">全选</a></label></li>
+					<li><p><button class="button" id="alldel"> 批量删除 </button></p></li>
+				</ul>
+				<span class="lm1">该页总金币:{$expend_coins}</span>
+				<div class="pages_css">
+				{$Page}		
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+
+<div id="conid" style="display:none;" >     
+    <form action="{:U('UserRecord/ConRecordinfo')}" method="post" id="userform">
+		<table cellpadding="0" cellspacing="0">
+		  <tr>
+			<td>用户名：</td>
+			<td id="username"></td>
+		  </tr>
+		  <tr class="user-input-tr">
+			<td>兑换名称：</td>
+			<td id="convert_name"></td>
+		  </tr>
+		  <tr class="user-input-tr">
+			<td>消耗金币：</td>
+			<td id="user_glod"></td>
+		  </tr>
+		  
+		  <tr class="user-input-tr">
+			<td>兑换的礼品：</td>
+			<td id="convert_get"></td>
+		  </tr>
+
+		  <tr class="user-input-tr">
+			<td>兑换状态：</td>
+			<td id="confirmstatus"></td>
+		  </tr>
+		  <tr>
+			<td>提交时间：</td>
+			<td id="subtime"></td>
+		  </tr>
+		  <tr>
+			<td>处理时间：</td>
+			<td id="complete_time"></td>
+		  </tr>
+		  <tr>
+			<td>提交数据：</td>
+			<td id="datas"></td>
+		  </tr>
+		   <tr>
+			<td>备注：</td>
+			<td id="confirmremarks"></td>
+		  </tr>
+		</table>
+		<input type="hidden" name="editid" value="" id="editid"/>
+    </form>
+</div>
+
+<script src="/Public/Plugin/bui/build/bui-min.js?t=201404241421"></script> 	
+<script src="/Public/youmi/js/WeiZhuan.js" type="text/javascript"></script> 
+<script type="text/javascript">
+    //需要使用的方法放到init,如果后面跟一个参数，框架内部会实例化
+    WeiZhuan.init({'init':'Check,AllDel,OneDel'});
+	var AjaxUrl = {
+	OrderDel : "{:U('UserRecord/ConvertDel')}",
+	};
+	
+	BUI.use(['bui/overlay','bui/form'],function(Overlay,Form){
+		var dialog = new Overlay.Dialog({
+			title:'用户操作',
+			width:500,
+			height:400,
+			//配置DOM容器的编号
+			contentId:'conid',
+			success:function () {
+			  $("#userform").submit();
+			  this.close();
+			}
+		  });
+		
+		$("tbody .phb_name td #shows").click(function(){
+			var sid = $(this).attr("showid");
+			$.ajax({
+				type: 'POST',
+				url: "{:U('UserRecord/ConRecordinfo')}",
+				data:{cid:sid},
+				dataType:'json',
+				success:function(data){
+					$("#username").html(data.username);
+					$("#convert_name").html(data.convert_name);
+					$("#user_glod").html(data.expend_coin);
+					$("#convert_get").html(data.convert_get);
+					if(data.status == 1 || data.status == 3){
+						convertsucess = "兑换成功";
+						remarks = data.remarks;
+					}else{
+						convertsucess = '<select name="status" class="input-back-bor" ><option value="0">--请选择--</option><option value="1" id="status1" >兑换成功</option>';
+						convertsucess +='<option value="2" id="status2" ';
+						if(data.status ==2){ convertsucess +='selected'; } 
+						convertsucess +='>兑换中</option><option value="3" ';
+						if(data.status ==3){ convertsucess +='selected'; } 
+						convertsucess +=' id="status3">兑换失败</option></select>';
+						$("#status"+data.status).attr("selected","selected");
+						
+						remarks = "<textarea rows='3' cols='20' name='remarks'></textarea>";
+					}
+					$("#confirmstatus").html(convertsucess);
+					$("#confirmremarks").html(remarks);
+					$("#subtime").html(data.add_time);
+					$("#complete_time").html(data.complete_time);
+					$("#datas").html(data.userdata+" "+data.userdata1);
+					$("#editid").val(sid);
+					dialog.show();
+				}
+			}); 
+		});
+		
+	});
+</script>	
+</body>
+</html>

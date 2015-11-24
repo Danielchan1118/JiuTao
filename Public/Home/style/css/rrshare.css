@@ -1,0 +1,36 @@
+.xn_share_wrapper{
+	text-decoration:none;
+	font-family:verdana,arial,sans-serif;
+	cursor:pointer;
+	display:inline-block;
+}
+.xn_share_icon_small {
+	background-image:url(http://xnimg.cn/xnapp/share/img/v/16_16.png);
+	background-repeat:no-repeat;overflow:hidden;
+	width:16px;height:16px;
+}
+.xn_share_icon_medium {
+	background-image:url(http://xnimg.cn/xnapp/share/img/v/24_24.png);
+	background-repeat:no-repeat;overflow:hidden;
+	width:24px;height:24px;
+}
+.xn_share_icon_large {
+	background-image:url(http://xnimg.cn/xnapp/share/img/v/32_32.png);
+	background-repeat:no-repeat;overflow:hidden;
+	width:32px;height:32px;
+}
+.xn_share_button_small {
+	background-image:url(http://xnimg.cn/xnapp/share/img/v/53_16.png);
+	background-repeat:no-repeat;overflow:hidden;
+	width:53px;height:16px;
+}
+.xn_share_button_medium {
+	background-image:url(http://xnimg.cn/xnapp/share/img/v/68_24.png);
+	background-repeat:no-repeat;overflow:hidden;
+	width:68px;height:24px;
+}
+.xn_share_button_large {
+	background-image:url(http://xnimg.cn/xnapp/share/img/v/180_24.png);
+	background-repeat:no-repeat;overflow:hidden;
+	width:108px;height:24px;
+}

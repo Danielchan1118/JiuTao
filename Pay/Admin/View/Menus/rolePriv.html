@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>权限设置</title>
+<link href='/Public/youmi_admin/style/css/css.css' rel="stylesheet" type="text/css" />
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+<style type="text/css">
+.btn { background: white; padding: 0px 12px 0 12px; height: 20px; line-height: 20px; }
+</style>
+</head>
+<body>
+  <!-- body title -->
+<div class="bui_head_bor">
+  <div class="bui_head_t">
+    <div class="bodytitle"><div id="h_title">&nbsp;&nbsp;权限设置</div>
+    </div>
+</div>
+<form action="{:U('/Admin/Menus/rolePriv?id='.$role_id)}" method="post">
+<div class="subbox">  
+  <div class="bui_content_b">
+    <div class="bui-content">
+      <table cellspacing="0" class="table table-bordered role-td" width="1130" >
+        <volist name="list" id="vo" key="key">
+            <tr class="phb_back"  style="text-align:left;">
+              <td><input type="checkbox" name="menu_id[]" value="{$vo.id}" level="0" <eq name="vo.flag" value="1">checked</eq> onclick="javascript:checknode(this);" /></td>
+              <td>{$vo.name}<font color="blue">&nbsp;({$vo.action})</font>
+                  <switch name="vo.is_show">
+                    <case value="0"><font style="color:rgb(0,0,255);">[显示]</font></case>
+                    <case value="1"><font style="color:red;">[隐藏]</font></case>
+                  </switch>
+              </td>           
+            </tr>
+
+              <volist name="vo.listSon" id="vol">
+              <tr class="phb_name" style="text-align:left;">
+                <td><input type="checkbox" name="menu_id[]" value="{$vol.id}" level="1" <eq name="vol.flag" value="1">checked</eq> onclick="javascript:checknode(this);" /></td>
+                <td class="menus_td" style="padding-left: 20px;">  &nbsp;|_{$vol.name}<font color="blue">&nbsp;({$vol.action})</font>
+                      <switch name="vol.is_show">
+                        <case value="0"><font style="color:rgb(0,0,255);">[显示]</font></case>
+                        <case value="1"><font style="color:red;">[隐藏]</font></case>
+                      </switch>
+                </td>    
+              </tr>    
+            </volist>
+
+        </volist>
+      </table>
+      <div class=""><input class="button" name="dosubmit" id="dosubmit" value="提交" type="submit"></div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+function checknode(obj){
+  var chk = $("input[type='checkbox']");
+  var count = chk.length;
+  var num = chk.index(obj);
+  var level_top = level_bottom =  chk.eq(num).attr('level')
+//根据子节点找到父节点并选中
+  for (var i=num; i>=0; i--){
+    var le = chk.eq(i).attr('level');
+
+    if(eval(le) < eval(level_top)){
+      chk.eq(i).attr("checked",'checked');
+      var level_top = level_top-1;
+    }
+
+  }
+//找到当前节点的所有子节点，并勾选/不勾选
+  for (var j=num+1; j<count; j++){
+    var le = chk.eq(j).attr('level');
+
+    if(eval(le) > eval(level_bottom))
+      chk.eq(j).attr(
+          "checked",
+          chk.eq(num).attr("checked")=="checked"?"checked":false
+      );
+    else if(eval(le) <= eval(level_bottom)) 
+      break;
+  }
+
+} 
+</script>
+</html>

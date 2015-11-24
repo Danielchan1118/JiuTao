@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>应用数据</title>
+<link href="/Public/Plugin/mta/style/css/gri.controls.css" rel="stylesheet" type="text/css">
+<link href="/Public/Plugin/mta/style/css/bootstrap.min.css" rel="stylesheet">
+<link href="/Public/Plugin/mta/style/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all" href="/Public/Plugin/mta/style/css/daterangepicker-bs3.css" />
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/moment.js"></script>
+<script type="text/javascript" src="/Public/Plugin/mta/style/js/daterangepicker.js"></script>
+<link href="/Public/youmi_admin/style/css/bui_css.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="bodytitle"><div id="h_title">应用数据</div>
+	<form action="{:U('DataCount/AppDatas')}" method="post">
+		<div class="margin_bottom">
+	      	<span class="span-right-space">
+				<input type="text" readonly="readonly" style="width: 200px" name="reservation" id="reservation" class="form-control" value="{$start_time|date='Y-m-d',###} - {$end_time|date='Y-m-d',###}" />
+			</span>
+			<span class="span-right-space"> 应用名: <input type="text" name="app_name" class="input-back-bor" value="{$appname}" /></span>
+			<script type="text/javascript">
+				$(document).ready(function() {
+				   $('#reservation').daterangepicker(null, function(start, end, label) {
+					 console.log(start.toISOString(), end.toISOString(), label);
+				   });
+				});
+			</script>
+			<span class="span-right-space"> <button type="submit" class="change_back"> 查询 </button></span>
+	    </div>
+	</form>
+	
+</div>
+
+<div class="subbox">  
+<div class="bui_content_b">
+  <div class="bui-content">
+	<div>
+		<span class="sub_title">
+			<div style="float: left;font-size: 16px; height: 30px;line-height: 30px; font-weight: bold; margin-right: 10px;">详细数据</div>
+		</span>
+		<span class="more_menu">
+			<div style="float:left;">
+				<form action="__URL__{$strUrl}" method="post" >
+					<input type="submit" value="导出Excel" class="change_back"/>
+				</form>
+			</div>
+			<div style="clear:both;"></div>
+		</span>
+	</div>
+		<div id="table_list" class="gri_wrapper">
+			<table style="margin-top: 20px;">
+					<colgroup span="5"><col class="gri_Date"><col class="gri_NewUser"><col class="gri_ActiveUser"><col class="gri_SessionNum"><col class="gri_TotalUser"></colgroup>
+					<thead>
+						<tr>
+							<th class="hover enable row_hover"> 应用名 <i class="icon-order-hover"></i></th>
+							<th> 下载量</th>
+							<th> 激活量</th>
+							<th> 签到量</th>
+							<th> 应用消耗金额</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="AppData" id="vo" key="key">
+						<tr>
+							<td class="row_hover"> {$vo.app_name} </td>
+							<td>{$vo.nomove}</td>
+							<td>{$vo.Activation}</td>
+							<td>{$vo.sign}</td>
+							<td>{$vo.app_money}</td>
+						</tr>
+						</volist>
+						<tr class="zongji">
+							<td>总计 </td>
+							<td>{$nomove}</td>
+							<td>{$Activation}</td>
+							<td>{$sign}</td>
+							<td>{$app_money}</td>
+						</tr>
+					</tbody>
+			</table>
+		</div>
+
+  </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+	function export_excel(){
+		var times = $("#reservation").val();
+		$.ajax({
+		  type: 'POST',
+		  url: "{:U('DataCount/export')}",
+		  data:{times:times},
+		  dataType:'json',
+		  success:function(data){
+				if(data.ret == 1){
+					$("#hidd"+delid).css("display","none");
+				}else if(data.ret==3){
+					$("#hidd"+delid).html("终止");
+				}else{
+					alert(data.message);
+				}
+			}
+		}); 
+
+	}
+</script>
+</body>
+</html> 

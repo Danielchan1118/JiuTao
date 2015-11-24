@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>关注微信送找游币</title>
+	<script src="http://g.tbcdn.cn/fi/bui/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/Plugin/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/Plugin/ueditor/lang/zh-cn/zh-cn.js"></script>	
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body style="background:#EDEEF0">
+<div class="bodytitle">
+	<div id="h_title">关注微信送找游币列表</div>
+</div>
+ 
+<div class="subbox">  
+	<div class="bui_content_b">
+		<div class="bui-content"> 
+			<table cellspacing="0" class="table table-tr article-td">
+				<tr  style="font-weight:bold;">
+					<td>赠送金币</td>
+					<td>赠送状态</td>
+					<td>操作</td>
+				</tr>
+				<tr>
+					<td>{$info.coin}</td>
+					<td><eq name="info.status" value="1">开启<else />关闭</eq></td>
+					<td><a href="{:U('Admin/WeChat/sendCoinEdit')}" >修改</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+</body>
+</html>

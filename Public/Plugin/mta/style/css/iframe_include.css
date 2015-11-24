@@ -1,0 +1,24 @@
+/* QQ互联iframe样式 */
+
+.iframe_include .mod_sidemenu .title,
+.iframe_include .mod_sidemenu .content a {
+	height: 34px;
+	line-height: 34px
+}
+
+.iframe_include .mod_sidemenu .title:hover a{
+	background-color: #fff
+}
+
+.iframe_include .mod_basic > .title .tabs a.current,
+.iframe_include .mod_basic > .title .tabs a.current:hover{
+	background-color: #0F8FDD;
+}
+.iframe_include .mod_basic > .content .sub_title .button_link{
+	color: #0F8FDD
+}
+
+.iframe_include .widgets,
+.iframe_include .footer_inner{
+	display: none
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+	<title>竞猜列表</title>
+</head>
+<body>
+
+<div class="bodytitle">
+	<div id="h_title">竞猜列表</div>
+	<div class="margin_bottom">
+	 <form action="/Admin/UserRecord/QuizList" method="post" enctype="multipart/form-data">
+		<span class="span-right-space">用户名：<input type="text" name="username" value="{$user}" class="input-back-bor"> </span>
+		<input type="submit" name="do_sumbit" value="提交" class="change_back">
+		<span class="span-right-space"><i class="lr1">总押积分{$quiz_integral}万 </i></span>
+	</form>
+	</div>
+</div>
+
+    <div class="subbox">  
+        <div class="bui_content_b">
+            <div class="bui-content">
+				<form action="/Admin/UserRecord/QuizDelAll" method="post" enctype="multipart/form-data">
+						<table cellspacing="0" class="table table-bordered">
+							<tr class="phb_name phb_back phb_bors atim_tr">
+								<th><input value="" id="check_box" onclick="selectall('uid[]');" type="checkbox"></th>
+								<th>序号</th>
+								<th>用户名</th>
+								<th>押积分</th>
+								<th>状态</th>
+								<th>添加时间</th>
+								<th>操作</th>
+							</tr>
+						  <volist name="quiz_list" id="vo" key="key">
+							<tr class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+								<td><input value="{$vol.id}" name="uid[]" type="checkbox"></td>
+								<td>{$vo.c_id}</td>
+								<td>{$vo.username}</td>
+								<td>{$vo.integral}万</td>
+								<td>
+									<switch name="vo.stauts">
+										<case value="1"><font color='red'>已投注</font></case>
+										<case value="2"><font color='green'>未中奖</font></case>
+										<case value="3"><font color=''>已中奖</font></case>
+									</switch>
+								</td>
+								<td>{$vo.add_time|date="Y-m-d  H:i:s",###}</td>
+								<td><a href="{:U('UserRecord/QuizList?id='.$vo[id])}">删除 </a></td>
+							</tr>
+						  </volist>
+						</table>
+			<div id="checkbox_class">
+			  <ul class="toolbar pull-left">
+				<li><label class="checkbox" for="check_box"><input type="checkbox" data-check="uncheck"><a href="javascript:;">全选</a></label></li>
+				<li><p><button class="button" id="alldel"> 批量终止 </button></p></li>
+			  </ul>
+			  <span class="lm1">该页总押积分：{$integrals}万</span>
+				<div class="pages_css">
+				{$Page}		
+				</div>
+			</div>
+				</form>                    
+            </div>
+        </div>
+    </div>    
+</body>
+</html>

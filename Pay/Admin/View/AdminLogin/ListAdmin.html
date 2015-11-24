@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理员列表</title>
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" />  
+</head>
+<body>
+
+<div class="bodytitle">
+	<div id="h_title">管理员列表</div>
+	<div style="margin-left: 20px;"><a href="javascript:;" id="btnShow" class="change_back" >添加管理员</a></div>
+</div>
+
+<div class="subbox">  
+  <div class="bui_content_b">
+    <div class="bui-content">
+		<form action="{:U('AdminLogin/adminDEl')}" method="post">
+			<table cellspacing="0" class="table table-bordered">
+				<tr id="managerListtr" class="phb_name phb_back phb_bors atim_tr">
+					<th width="15"></th>
+					<th>用户名</th>
+					<th>角色所属</th> 
+
+					
+					<th>登录IP</th>
+					<th>登录时间</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+				<volist name="admin_list" id="vol" key="key">
+					<tr align="center" id="hidd{$vol.id}" class="phb_name <if condition='$key%2 eq 0'> phb_back </if>">
+						<td><input value="{$vol.id}" name="ordercheck" data-check-data="order{$vol.id}" type="checkbox"/></td>
+						<td>{$vol.username}</td>
+						<td>{$vol.role_name}</td>
+						<td>{$vol.login_ip}</td>
+						<td>{$vol.login_time|date="Y-m-d H:i:s",###}</td>
+						<td><eq name="vol.display" value="0">开启<else />关闭</eq></td>
+						<td> <span><a href="javascript:;" att="{$vol.id}" id="btnShows">修改</a> <a href="javascript:;" id="onedel" delid="{$vol.id}"> 删除 </a> </span></td>
+					</tr>
+				</volist>
+			</table>
+		</form>	
+		
+		<div id="checkbox_class">
+		  <ul class="toolbar pull-left">
+			<li><label class="checkbox" for="check_box"><input type="checkbox" data-check="uncheck"><a href="javascript:;">全选</a></label></li>
+			<li><span><button class="button" id="alldel"> 批量删除 </button> </span></li>
+		  </ul>
+			<div class="pages_css">
+			{$Page}		
+			</div>
+		</div>
+    </div>
+  </div>
+</div>
+<div id="adminid" style="display:none;" >
+<form action="{:U('AdminLogin/AddAdmin')}" method="post" id="myform" onsubmit="return dianiji()">
+  <table cellspacing="0" class="table table-bordered table-tr " width="480" >
+	<tr>
+		<td>用户名：</td>
+		<td><input type="text" name="username" class="input-back-bor username" value="" id="UserName" maxlength="11" data-check="UserNmae"/> <span id="MessUsername"> 由6-16位的字母，数字组成</span></td>
+	</tr>
+	<tr>
+		<td>密码：</td>
+		<td><input type="password" name="password" class="input-back-bor" maxlength="16" id="password" data-check="NumberOrLetter"/> <span id="MessPassword">密码长度大于6小于22</span></td>
+	</tr>
+	<tr>
+		<td>所属角色：</td>
+		<td>
+			<select name="role" id="selectrole">
+				<option value="0" >--请选择--</option>
+				<volist name="roleList" id="v">
+					<option id="mid{$v.id}" value="{$v.id}" >{$v.role_name}</option>
+				</volist>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>状态：</td>
+		<td><input  type="radio" name="is_show" id="radio0" value="0" checked />开启&nbsp;&nbsp;<input type="radio" id="radio1" name="is_show" value="1" />关闭</td>
+	</tr>
+	<input type='hidden' name='edit_id' id='edit_id' value="">
+  </table>
+</form>
+</div>
+<script src="/Public/Plugin/bui/build/bui-min.js?t=201404241421"></script> 
+<script type="text/javascript">
+	BUI.use(['bui/overlay','bui/form'],function(Overlay,Form){
+		var dialog = new Overlay.Dialog({
+			title:'管理员操作',
+			width:500,
+			height:320,
+			//配置DOM容器的编号
+			contentId:'adminid',
+			success:function () {
+			  $("#myform").submit();
+			  this.close();
+			}
+		});
+		$('#btnShow').on('click',function () {
+			$(".username").attr("id","UserName");
+			$("#UserName").val("");
+			$("#UserName").removeAttr("readonly");
+			$("#radio0").attr("checked","checked");
+			$("#edit_id").val(" ");
+			selectid = $("#selectrole ").val();
+			$("#mid"+selectid).removeAttr("selected");
+			dialog.show();
+		});
+
+		$('tbody tr td #btnShows').on('click',function () {
+			var edit_id = $(this).attr("att");
+			if(edit_id){
+				$.ajax({
+					type:'post',
+					url:"{:U('AdminLogin/AddAdmin')}",
+					dataType:'json',
+					data:{"edit_id" : edit_id},
+					success:function(data){
+						if(data){
+							if(data.username){
+								$("#UserName").val(data.username);
+								$("#UserName").attr("readonly","readonly");
+								$(".username").removeAttr("id");
+							}
+							$("#mid"+data.role_id).attr("selected","selected");
+							$("#radio"+data.display).attr("checked","checked");
+							$("#edit_id").val(data.id);
+						}else{
+							alert("操作错误");
+						}
+					}
+				});	
+				dialog.show();
+			}else{
+				alert("操作有误");
+			}
+		});
+	});
+	
+	function dianiji(){
+		var username = $("#username").val();
+		var password = $("#password").val();
+		if(username =='' || password ==''){
+			alert('操作失败，数据不能为空！');
+			return false;
+		}
+
+	}
+</script>
+
+<script src="/Public/youmi/js/WeiZhuan.js" type="text/javascript"></script> 
+<script type="text/javascript">
+  WeiZhuan.init({'init':'OneDel,UserName,PassWord,PassWord2'});
+
+  var AjaxUrl = {
+	checkuser : "{:U('Admin/check_username')}",
+    OrderDel : "{:U('AdminLogin/adminDEl')}",
+  };
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+<title>广告管理列表</title>
+</head>
+
+<body style="background:#EDEEF0">
+
+<div class="bodytitle">
+	<div id="h_title">广告列表</div>
+	<div class="margin_bottom">
+		<span class="span-right-space" ><button type="button" id="addAds" class="change_back"> 添加广告 </button></span>
+    </div>
+	
+</div>
+
+<div class="subbox">
+	<div class="bui_content_b">
+		<div class="bui-content">
+			 <table cellspacing="0" class="table table-bordered" width="1130" >
+			<tr id="jiacu" class="phb_name phb_back phb_bors atim_tr">
+				<th>序号</th>
+				<th>广告名称</th>
+				<th>广告图片</th>
+				<th>应用ID</th>
+				<th>位置</th>
+				<th>状态</th>
+				<th>时间期限</th>
+				<th>排序</th>
+				<th>操作</th>
+			</tr>
+			<volist name="adlist" id="v" key="key">
+			<tr id="hidd{$v.id}" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+				<td>{$key}</td>
+				<td>{$v.ads_name}</td>
+				<td><img src="{$v.images}" width="60" height="80" /></td>
+				<td>{$v.url}</td>
+				<td>{$v.ads_type}</td>
+				<td><eq name="v.is_show" value="1">显示</eq><eq name="v.is_show" value="2">不显示</eq></td>
+				<td>{$v.start_time|date="Y-m-d",###} 至 {$v.end_time|date="Y-m-d",###}</td>
+				<td>{$v.order_id}</td>
+				<td><span><a href="{:U('AdManage/AdMan?id='.$v[id])}">修改 | </a><a href="javascript:;" id="onedel" delid="{$v.id}" >删除</a></span></tr>
+			</td>
+			</volist>
+		</table>
+
+		</div>
+	</div>
+</div>
+<script src="/Public/youmi/js/WeiZhuan.js" type="text/javascript"></script> 
+<script type="text/javascript">
+	WeiZhuan.init({'init':'OneDel'});
+	  var AjaxUrl = {
+		OrderDel : "{:U('AdManage/delAd')}",
+	  };
+
+	$("#addAds").click(function(){
+   		window.location.href="{:U('AdManage/AdMan')}";
+	});
+</script>
+</body>
+</html>
+
+
+  

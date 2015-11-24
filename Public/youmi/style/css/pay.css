@@ -1,0 +1,23 @@
+@charset "utf-8";
+/*支付页面银行卡图片*/
+#tishi{ color: red; }
+#bank span a { background-image: url("/Public/youmi/style/image/payImg.png"); background-repeat: no-repeat; border: 1px solid #ddd;  display: inline-block; height: 29px; text-indent: -999px; width: 132px; }
+#bank { border-top: 1px dashed #cecece; margin: 15px 0 0; overflow: hidden; padding: 15px 0 0 15px; width: 505px; }
+#zggs a { background-position: 0 -425px; }
+#zgjh a { background-position: -136px -425px; }
+#zgly a { background-position: -272px -425px; }
+#zgzs a { background-position: 0 -455px; }
+#zgyh a { background-position: -136px -456px; }
+#zgjt a { background-position: -272px -457px; }
+#zggd a { background-position: 0 -487px; }
+#zgms a { background-position: -136px -487px; }
+#zgxy a { background-position: -272px -487px; }
+#zgpf a { background-position: 0 -518px; }
+#zgdy a { background-position: -136px -519px; }
+#zgzx a { background-position: -272px -518px; }
+#szfz a { background-position: 0 -548px; }
+#zgyz a { background-position: -136px -549px; }
+#zgpa a { background-position: -272px -549px; }
+#zgbh a { background-position: 0 -579px; }
+#zgbj a { background-position: -136px -579px; }
+#zgnj a { background-position: -272px -579px; }

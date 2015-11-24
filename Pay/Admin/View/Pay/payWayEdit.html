@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值方式编辑</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body>
+<div class="bodytitle">
+  <div id="h_title">添加充值方式</div>
+  
+</div>
+
+  <div class="container">
+  <form class="form-horizontal" id="form2" method="post" action="{:U('pay/payWayEdit?id='.$info['id'])}">
+
+  <div class="control-group">
+
+  <label class="control-label" for="sort">排序</label>
+
+  <div class="controls">
+
+  <input class="input-mini input-back-bor" type="text" id="sort" name="sort" placeholder="排序" value="{$info.sort}"/>
+
+  <input class="input-mini" type="hidden" id="iconc" name="iconc" >
+
+
+
+  </div>
+
+  </div>
+
+  <div class="control-group">
+
+  <label class="control-label" for="Tag">Tag</label>
+
+  <div class="controls">
+
+  <input type="text" class="input-medium input-back-bor" class="" id="tag" name="tag" placeholder="tag" value="{$info.tag}"/>
+
+  </div>
+
+  </div>
+
+  <div class="control-group">
+
+  <label class="control-label" for="pay_name">渠道名称</label>
+
+  <div class="controls">
+
+  <input type="text" class="input-medium input-back-bor" id="pay_name" name="pay_name" placeholder="pay_name" value="{$info.payname}"/>
+
+  </div>
+
+  </div>
+
+  <div class="control-group">
+
+  <label class="control-label" for="fee">费率</label>
+
+  <div class="controls">
+
+  <input type="text" class="input-mini input-back-bor" id="fee" name="fee" placeholder="fee" value="{$info.fee}"/>
+
+  </div>
+
+  </div>
+
+
+
+  <div class="control-group">
+
+  <label class="control-label" for="account">支付商户号</label>
+
+  <div class="controls">
+
+  <input type="text" size="60" id="account" name="account" placeholder="account" value="{$info.account}" class="input-back-bor" style="width:300px;"/>
+
+  </div>
+
+  </div>
+
+  <div class="control-group">
+
+  <label class="control-label" for="key">支付密钥</label>
+
+  <div class="controls">
+
+  <input type="text" size="60" id="key" name="key" placeholder="key" value="{$info.key}" class="input-back-bor" style="width: 300px;"/>
+
+  </div>
+
+  </div>
+
+  <div class="control-group">
+
+  <label class="control-label" for="content">描述</label>
+
+  <div class="controls">
+
+  <textarea rows="7" cols="53" name="content" id="content" placeholder="请输入充值渠道描述" style="resize:none;" >{$info.content}</textarea>
+
+  </div>
+
+  </div>
+
+  <div class="control-group">
+  <label class="control-label" for="isdisplay">是否显示</label>
+
+  <div class="controls">
+  <input type="radio" name="isdisplay" id="isdisplay" value="1" <eq name="info.isdisplay" value="1"> checked="checked" </eq> /> 显示
+  <input type="radio" name="isdisplay" id="isdisplay" value="2" <eq name="info.isdisplay" value="2"> checked="checked" </eq> /> 不显示
+
+  </div>
+  </div>
+  <div class="control-group">
+  <label class="control-label" for="status">是否启用</label>
+  <div class="controls">
+  <input type="radio" name="status" id="status" value="1" <eq name="info.status" value="1"> checked="checked" </eq> /> 启用 
+  <input type="radio" name="status" id="status" value="2" <eq name="info.status" value="2"> checked="checked" </eq> /> 不启用
+  </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+  <label class="checkbox">
+  <button type="submit" class="button" id="add">添加</button>
+  </label>
+  </div>
+  </div>
+  </form>
+  </div>
+  </body>
+</html>
+<script type="text/javascript">
+   $("#form2").submit(function(){
+     //增加充值方式
+     var sort = $('#sort').val();
+     var tag = $('#tag').val();
+     var pay_name = $('#pay_name').val();
+     var fee = $('#fee').val();
+     var content = $('#content').val();
+     if(sort =="" || tag =="" || pay_name =="" || fee =="" || content ==""){
+       alert('请填写完整充值渠道的信息再进行提交!');
+       return false;
+     } 
+   });
+</script>

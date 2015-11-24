@@ -1,0 +1,52 @@
+<include file="head"  />
+		<title>旧淘 - 低碳环保的生活方式 - 最安全方便二手市场</title>
+		<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/>  	
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/index.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/sear.css?v=201412231400">
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/lib/animate.css?v=201412231400"/>
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js?v=201412231400"></script>
+	</head>
+<body >
+	<!--左侧分类展示start  固定-->
+	<include file="nav" catList="{$catList}" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	<div class="container">
+		<div class="main center">
+			<img class="search-icon-main" src="__PUBLIC__/Home/style/image/search-icon-big.png" alt="{$word}">
+			<div class="category-name">{$word}</div>
+			<hr size="1" color="#ffbb45">
+			<div class="rank-by clearfix cur1" data-cur="1">
+				<div class="wave ease2"></div>
+			</div>
+			<ul class="goods-list">
+				<volist name="arrPayList" id="vo">
+					<li class="clearfix">
+						<a href="{:U('Home/Goods/goodsDetail?id='.$vo['id'])}" class="photo-wr" title="{$vo.title}" target="_blank">
+							<img src="{$www}{$vo.image_url}" alt="{$vo.title}">
+						</a>
+						<div class="goods-info-wr">
+							<div class="goods-title">
+								<a href="{:U('Home/Goods/goodsDetail?id='.$vo['id'])}" title="{$vo.title}" target="_blank">{$vo.title}</a>
+							</div>
+							<div class="goods-desc">{$vo.content}</div>
+							<div class="poster"><span>{$vo.nickname|default="小淘"}</span></div>
+							<div class="place"><span>{$vo.location|default="火星"}</span></div>
+							<neq name="vo.biddata" value="">
+								<div class="price"><span>{$vo.biddata.current_price}</span></div>
+							<else/>
+								<div class="price"><span>{$vo.real_price}</span></div>
+							</neq>					
+						</div>
+					</li>
+				</volist>
+			</ul>
+			<div class="pages">
+				{$page}
+			</div>
+		</div>
+	</div>
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" />

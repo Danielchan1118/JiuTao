@@ -1,0 +1,71 @@
+<include file="head"  />
+		<title>我的收藏 - 旧淘</title>
+		<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/> 	
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/profile.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/lib/animate.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/lib/module.css?v=201412231400"/>		
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js?v=201412231400"></script>	
+	</head>
+<body >
+	<!--左侧分类展示start  固定-->
+	<include file="nav" catList="{$catList}" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	
+	<div class="container">
+		<div class="main center">
+			<div class="top clearfix">
+				<div id="user_msg">
+					<div class="name">
+						{$info.nickname}
+						<!--
+						<img class="grade_prof" src="" alt="等级显示">
+						-->
+					</div>
+					<div id="need_value"></div>
+					<div id="got_value" ></div>
+					<img id="grade_value_btn" src="__PUBLIC__/Home/style/image/grade_value_btn.png" alt="等级显示" >
+					<ul id="value_box" >
+						<li>当前等级 : <span>{$info.score.lever}</span></li>
+						<li>当前积分 : <span>{$info.score.score}</span></li>
+						<li>升级还需 : <span>{$info.score.need_score}</span></li>
+					</ul>
+				</div>
+				<div id="user_photo">
+					<img id="origin_ph" src="{$userinfo.head_img_url}" alt="头像" style="display: block;">
+					<img id="change_ph" src="{$userinfo.head_img_url}" alt="头像" style="display: none;">
+				</div>
+			</div>
+			<ul id="middle_nav" class="clearfix">
+				<li><a href="/UserCenter">个人资料</a></li>
+				<li><a href="/UserCenter/goods">我发布的商品</a></li>
+				<li class="on"><a href="/UserCenter/collect">我的收藏</a></li>
+				<li><a href="/UserCenter/message">消息中心</a></li>
+			</ul>
+
+			<div id="my_enshrine">
+
+				<volist name="info.data" id="vo">
+				<div class="enshr_each" id="goods{$vo.id}">
+					<div class="enshr_info">
+						<h2><a href="{:U('Home/Goods/goodsDetail?id='.$vo['id'])}">{$vo.title}</a></h2>
+						<p>{$vo.content}</p>
+						<div class="enshr_state"> 
+							<span class="enshrine_it" onclick="cancel_favorites({$vo.id});">取消收藏</span>
+							<span class="onsaling">{$vo.typeStr}</span>
+						</div>
+					</div>
+					<img class="enshr_ph" src="{$vo.image_url}" alt="{$vo.title}">
+				</div>
+				</volist>
+
+			</div>			
+			
+			
+			
+		</div>
+	</div>	
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	

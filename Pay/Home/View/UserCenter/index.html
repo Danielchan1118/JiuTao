@@ -1,0 +1,86 @@
+<include file="head"  />
+		<title>个人资料 - 旧淘</title>
+		<link rel="icon" href="__PUBLIC__/Home/style/image/jiutao.ico"/> 	
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/init.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/main.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/profile.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/lib/animate.css?v=201412231400"/>
+		<link rel="stylesheet" href="__PUBLIC__/Home/style/css/lib/module.css?v=201412231400"/>		
+		<script type="text/javascript" src="__PUBLIC__/Home/style/js/jquery-1.7.2.min.js?v=201412231400"></script>		
+	</head>
+<body >
+	<!--左侧分类展示start  固定-->
+	<include file="nav" catList="{$catList}" />
+	<!--左侧分类展示end 固定-->
+	<!--内容展示页start 动态-->
+	
+	<div class="container">
+		<div class="main center">
+			<div class="top clearfix">
+				<div id="user_msg">
+					<div class="name">
+						{$info.nickname}
+						<!--
+						<img class="grade_prof" src="" alt="等级显示">
+						-->
+					</div>
+					<div id="need_value"></div>
+					<div id="got_value" ></div>
+					<img id="grade_value_btn" src="__PUBLIC__/Home/style/image/grade_value_btn.png" alt="等级显示" >
+					<ul id="value_box" >
+						<li>当前等级 : <span>{$info.score.lever}</span></li>
+						<li>当前积分 : <span>{$info.score.score}</span></li>
+						<li>升级还需 : <span>{$info.score.need_score}</span></li>
+					</ul>
+				</div>
+				<div id="user_photo">
+					<img id="origin_ph" src="{$userinfo.head_img_url}" alt="头像" style="display: block;">
+					<img id="change_ph" src="{$userinfo.head_img_url}" alt="头像" style="display: none;">
+				</div>
+			</div>
+			<ul id="middle_nav" class="clearfix">
+				<li class="on"><a href="/UserCenter">个人资料</a></li>
+				<li><a href="/UserCenter/goods">我发布的商品</a></li>
+				<li><a href="/UserCenter/collect">我的收藏</a></li>
+				<li><a href="/UserCenter/message">消息中心</a></li>
+			</ul>
+			<div id="my_info">
+				<div id="account_info">
+					<h2>账户信息</h2>
+					<ul class="infos">
+						<li>用户名</li>
+					<li class="right_info">
+						{$info.nickname}                   
+					</li>
+					</ul>
+				</div>
+				<div id="base_info">
+					<h2>基本信息 <span id="edit_info">编辑</span><span id="save_info">保存</span></h2>
+					<ul class="infos" style="display:none;">
+						<li>用户名</li>
+						<li class="right_info">
+							<span id="nickname_span">{$info.uid}</span>
+							<input type="text" value="{$info.uid}" id="nickname">
+							<!--等级图标-->
+						</li> 
+					</ul>
+					<ul class="infos">
+						<li>手机</li>
+						<li class="right_info">
+							<span id="phone_span">{$info.mobiephone}</span>
+							<input type="text" value="{$info.mobiephone}" id="phone">
+						</li>
+					</ul>
+					<ul class="infos">
+						<li>QQ</li>
+						<li class="right_info">
+							<span id="qq_span">{$info.qq}</span>
+							<input type="text" value="{$info.qq}" id="qq">
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>	
+	<!--内容展示页end  动态-->
+	<include file="main_content_all" hotCatList="{$hotCatList}" userinfo ="{$userinfo}" />	

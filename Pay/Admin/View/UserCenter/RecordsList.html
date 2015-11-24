@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$title}</title>
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href="/Public/youmi_admin/style/css/bui_css.css" rel="stylesheet">
+<link href="/Public/Plugin/mta/style/css/moulde.css" rel="stylesheet" type="text/css">
+</head>
+<body style="background:#EDEEF0">
+	<div class="bodytitle"><div id="h_title">用户记录&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:13px;" id="Inquiries">用户:{$username}</span></div>
+		<div class="input-prepend input-group datatimes" style="margin-left:20px;">
+		   
+		</div>
+	</div>
+	
+	<div class="subbox">  
+		<div class="bui_content_b">
+			<div class="mod_basic">
+				<div class="title">
+					<h3>记录列表</h3>
+					<div class="tabs" id="evt_tabs" att="{$username}">
+					<a id="evt_1" href="javascript:;" <if condition="$action eq 'evt_1'"> class="current" </if> class="first">任务记录</a>
+					<a id="evt_2" href="javascript:;" >兑换记录</a>
+					<a id="evt_3" href="javascript:;" >邀请记录</a>
+					<!--<a id="evt_4" href="javascript:;" class="last">竞猜记录</a> -->
+					<a id="evt_5" href="javascript:;" class="last">下载记录</a>
+					</div>
+				</div>
+				
+				<div class="content">
+					<h4 class="sub_title" id="hChartTitle">（含重复安装）操作系统版本分布</h4>
+					<div class="sub_content">
+						<span class="evt_1" style="display:block;">
+						<table cellspacing="0" class="table table-bordered" >
+						  <tr class="phb_name phb_back phb_bors atim_tr">
+							<th>任务名称</th>
+							<th>赚取金币</th>
+							<th>完成时间</th>
+						  </tr>
+						  <tbody class="records">
+						  <if condition="$integrals eq 1">
+							  <tr>
+								<td>没有数据</td>
+								<td>没有数据</td>
+								<td>没有数据</td>
+							  </tr>
+						 
+						   <else/>
+							  <volist name="integrals" id="vo" key="key">
+							  <tr class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+								<td>{$vo.taskname}<if condition="$vo.taskname eq null">空</if></td>
+								<td>{$vo.earn_coin}</td>
+								<td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+							  </tr>
+							  </volist>
+						   </if>
+						</tbody>
+						</table>
+						</span>
+						
+						<span class="evt_2" style="display:none;">
+						<table cellspacing="0" class="table table-bordered" >
+						<tr class="phb_name phb_back phb_bors atim_tr">
+							<th>兑换名称</th>
+							<th>兑换礼品</th>
+							<th>消耗金币</th>
+							<th>提交时间</th>
+							<th>处理时间</th>
+						</tr>
+						  <tbody class="converts"></tbody>
+						  </table>
+						</span>
+
+						<span class="evt_3" style="display:none;">
+						<table cellspacing="0" class="table table-bordered" >
+						<tr class="phb_name phb_back phb_bors atim_tr">
+							<th>用户名</th>
+							<th>被邀请用户</th>
+							<th>奖励游币</th>
+							<th>邀请时间</th>
+						</tr>
+						  <tbody class="intvit"></tbody>
+						  </table>
+						</span>
+
+						<span class="evt_5" style="display:none;">
+						<table cellspacing="0" class="table table-bordered" >
+						<tr class="phb_name phb_back phb_bors atim_tr">
+							<th>应用名</th>
+						  	<th>商家名</th>
+						  	<th>消耗金额</th>
+						  	<th>得到积分</th>
+						  	<th>状态</th>
+							<th>下载时间</th>
+						</tr>
+						  <tbody class="download"></tbody>
+						  </table>
+						</span>
+					<div id="nodata" style=""></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript">
+	var Url ={
+		downUrl:"{:U('admin/UserCenter/RecordsList')}"
+	}
+	$(function(){
+		$("#evt_tabs a").click(function(){
+			var recordtype = $(this).attr("id");
+			var username = $("#evt_tabs").attr("att");
+
+			$("#evt_tabs a").each(function() {    
+				$(this).removeClass();  
+			});
+			$("#"+recordtype).addClass("current");
+
+			$.ajax({
+				type:'POST',
+				url:Url.downUrl,
+				data:{recordtype:recordtype,username:username},
+				dataType:'json',
+				success:function(data){
+					//alert(data[0]);
+					var htmls = " ";
+					var hasData = (data != null && data != "");
+
+					$(".evt_1").css("display","none");
+					$(".evt_2").css("display","none");
+					$(".evt_3").css("display","none");
+					$(".evt_4").css("display","none");
+					$(".evt_5").css("display","none");
+					if(!hasData){
+						data = Array('');
+					}
+					for(var i= 0; i<data.length; i++){
+							htmls+="<tr>";
+							if(recordtype == 'evt_1' ){  
+								if(hasData){
+									htmls+="<td>"+data[i].taskname+"</td>";
+									htmls+="<td>"+data[i].earn_coin+"</td>";
+									htmls+="<td>"+ data[i].add_time+"</td>";
+									htmls+="</tr>";
+								}
+								$(".evt_1").css("display","block");
+								var classs = 'records';
+							}else if(recordtype == 'evt_2' ){ 
+								if(hasData){
+									htmls+="<td>"+data[i].convert_name+"</td>";
+									htmls+="<td>"+data[i].convert_get+"</td>";
+									htmls+="<td>"+data[i].expend_coin+"</td>";
+									htmls+="<td>"+data[i].add_time+"</td>";
+									htmls+="<td>"+data[i].complete_time+"</td>";
+									htmls+="</tr>";
+								}
+								$(".evt_2").css("display","block");
+								var classs = 'converts';
+								
+							}else if(recordtype == 'evt_3'){ //&& data.convert_name != 'null'
+								if(hasData){
+									htmls+="<td>"+data[i].username+"</td>";
+									htmls+="<td>"+data[i].invited_id+"</td>";
+									htmls+="<td>"+data[i].reward_coin+"</td>";
+									htmls+="<td>"+data[i].add_time+"</td>";
+									htmls+="</tr>";
+								}
+								$(".evt_3").css("display","block");
+								var classs = 'intvit';
+							}else if(recordtype == 'evt_5'){
+								if(hasData){
+									htmls+="<td>"+data[i].app_name+"</td>";
+									htmls+="<td>"+data[i].coopuser+"</td>";
+									htmls+="<td>"+data[i].app_money+"</td>";
+									htmls+="<td>"+data[i].glod+"</td>";
+									htmls+="<td>";
+									if( data[i].is_today_sign == 1){
+											htmls+="签到";
+									}else if( data[i].move == 1){
+											htmls+= "打开"
+									}else if(data[i].nomove == 1){
+											htmls+= "下载"
+									}
+									htmls+="</td><td>"+data[i].add_time+"</td>";
+									
+									htmls+="</tr>";
+								}
+								$(".evt_5").css("display","block");
+								var classs = 'download';
+							}
+					}
+					/*if(data[0].integrals != null){
+						$("#Inquiries").html("总条数:"+data[0].counts+"&nbsp;&nbsp;总积分："+data[0].integrals+"");
+					}else{
+						$("#Inquiries").html("总条数:"+0+"&nbsp;&nbsp;总积分："+0+"");
+					}*/
+					$("#nodata").html("");
+					if(!hasData)
+						$("#nodata").html("没有数据！");
+					$("."+classs).html(htmls);
+				}
+			});
+
+		});
+	});
+
+	
+
+</script>

@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>平台活动</title>
+	<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+	<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+</head>
+<body> 
+	<div class="bodytitle"><div id="h_title">平台活动</div></div>
+	
+	<div class="subbox">  
+		<div class="bui_content_b">
+			<div class="bui-content">
+				<table cellspacing="0" class="table table-bordered">
+					<tr id="jiacu" class="phb_name phb_back phb_bors atim_tr">
+						<th>ID</th>
+						<th>活动名</th>
+						<th>活动说明</th>
+						<th>获取积分</th>
+						<th>活动封面图片</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					<volist name="task_list" id="v" key="key">
+					<tr align="center" class="phb_name <if condition="$key%2 eq 0"> phb_back </if>">
+						<td>{$v.atr_id}</td>
+						<td>{$v.atr_name}</td>
+						<td>{$v.atr_detail}</td>
+						<td>{$v.atr_toscore}</td>
+						<td><img src='{$v.img_url}' width="50" height="50"></td>
+						<td><eq name="v.is_on" value="2">关闭<else />开启</eq></td>
+						<td><a href="javascript:;" id="btnShows" att="{$v.atr_id}">编辑</a></td>
+					</tr>
+					</volist>
+				</table>	
+				<div class="pages_css">
+					{$Page}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<div id="atrid" style="display:none;">
+	<form action="{:U('Admin/Activity/ActivityEdit')}" method="post" id="atr_form" onsubmit="return dianji()" enctype="multipart/form-data">
+		<table cellspacing="0" class="table table-bordered table-tr">
+			<tr>
+				<td>活动名：</td>
+				<td><input type="text" name="name" id="atr_name" value="" class="input-back-bor"></td>
+			</tr>
+			<tr>
+				<td>规则说明：</td>
+				<td><input type="text" name="detail" id="atr_detail" value="" class="input-back-bor"></td>
+			</tr>
+			<tr>
+				<td>赠送积分：</td>
+				<td><input type="text" name="score" id="atr_toscore" value="" class="input-back-bor"></td>
+			</tr>
+			<tr id="signglod">
+				<td>分享签到积分：</td>
+				<td><input type="text" name="data2" id="data2" value="" class="input-back-bor"></td>
+			</tr>
+			<tr>
+				<td>任务图片：</td>
+				<td><input type="file" name="imgFile" value=""/><img width="50" height="50" id="atrimg" src="">
+					<input type="hidden" name="img_url1" id="img_url" value="{$atrAll.info.img_url}">
+				</td>
+			</tr>
+			<tr id="sjdata1">
+				<td>随机赠送积分：</td>
+				<td><input type='text' name='data1' id='data1' value=''></td>
+			</tr>
+			<tr>
+				<td>是否开启：</td>
+				<td>
+					<input type="radio" name="on" value="1" id="radio1" >是<input type="radio" name="on" value="2" id="radio2"  >否
+				</td>
+			</tr>
+			<tr id="dzpdata3">
+				<td>规则说明：</td>
+				<td>
+					<textarea cols="50" rows="5" name="data3" id="data3"></textarea>
+				</td>
+			</tr>
+			<tr id="dzpcheck">
+				<td colspan="2"><a href="/Admin/Activity/roleWheelList">查看规则</a></td>
+			</tr>
+			<input type="hidden" name="editid" id="edit_id" value="">
+		</table>
+	</form>
+</div>
+<script src="/Public/Plugin/bui/build/bui-min.js?t=201404241421"></script> 
+<script type="text/javascript">
+	BUI.use(['bui/overlay','bui/form'],function(Overlay,Form){
+		var dialog = new Overlay.Dialog({
+			title:'用户操作',
+			width:500,
+			height:500,
+			//配置DOM容器的编号
+			contentId:'atrid',
+			success:function () {
+			  $("#atr_form").submit();
+			  this.close();
+			}
+		  });
+
+		$('tbody tr td #btnShows').on('click',function () {
+			var edit_id = $(this).attr("att");
+			$("#dzpdata3").css("display","none");
+			$("#dzpcheck").css("display","none");
+			$.ajax({
+				type:'post',
+				url:"{:U('Activity/ActivityEdit')}",
+				dataType:'json',
+				data:{"edit_id" : edit_id},
+				success:function(data){
+					if(data){
+						$("#atr_name").val(data.atr_name);
+						$("#atr_detail").val(data.atr_detail);
+						$("#atr_toscore").val(data.atr_toscore);
+						$("#atrimg").attr("src",data.img_url);
+						$("#img_url").val(data.img_url);
+						$("#radio"+data.is_on).attr("checked","checked");
+						$("#atr_name").val(data.atr_name);
+						if(edit_id == 19){
+							$("#data1").val(data.data1);
+							$("#sjdata1").css("display","");
+							$("#signglod").css("display","none");
+						}else if(edit_id == 6){
+							
+						}else if(edit_id == 16){
+							$("#data2").val(data.data1);
+							$("#signglod").css("display","");
+							$("#sjdata1").css("display","none");
+						}else if(edit_id == 20){
+							$("#data3").val(data.data1);
+							$("#dzpdata3").css("display","block");
+							$("#dzpcheck").css("display","block");
+							$("#sjdata1").css("display","none");
+							$("#signglod").css("display","none");
+						}else{
+							$("#sjdata1").css("display","none");
+							$("#signglod").css("display","none");
+						}
+						$("#edit_id").val(edit_id);
+					}else{
+						alert("操作错误");
+					}
+				}
+			});	
+		  dialog.show();
+		});
+	});
+
+	 function dianji(){
+		var atr_name = $("#atr_name").val();
+		var atr_detail = $("#atr_detail").val();
+		var atr_toscore = $("#atr_toscore").val();
+		if(atr_name =='' || atr_detail =='' || atr_toscore ==''){
+			alert('操作失败，数据不能为空！');
+			return false;
+		}
+	}
+</script>	
+
+</body>
+</html>

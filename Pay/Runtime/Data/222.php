@@ -1,0 +1,1 @@
+s:89:"SELECT * FROM `oh_pay` WHERE ( status = 1 and location='南通市' ) ORDER BY real_price ";

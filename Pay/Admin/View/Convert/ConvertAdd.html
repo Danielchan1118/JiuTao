@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="/Public/jquery/jquery-1.8.3.min.js"></script> 
+<link href='/Public/youmi_admin/style/css/bui_css.css' rel="stylesheet" type="text/css" /> 
+<title>兑换</title>
+</head>
+<body>
+  <div class="bui_head_bor">
+    <div class="bui_head_t">
+      <div class="bodytitle"><img src="/Public/youmi/style/image/back.png" />&nbsp;&nbsp;添加栏目</div>
+	  <h1 ><a href="{:U('Convert/ConvertIndex')}">返回列表页</a></h1>
+
+    </div>
+  </div>
+
+<div id="roleid" style="display:none;">  
+<form method='post' action="{:U('Convert/ConvertAdd')}" enctype="multipart/form-data" id="myform" >
+  <table cellspacing="0" class="table table-bordered"width="1130" >
+	<tr>
+		<td>兑换名称</td>
+		<td><input type="text" name="golds" id="golds" value="{$edit.gold}"/></td>
+	</tr>
+	 <tr>
+		<td>封面图</td>
+		<td> <input type="file" name="image" value=""/><img src="../../../../{$edit.image}"><input name="image1" type="hidden" value="{$edit.image}"></td>
+	</tr>
+	 <tr>
+		<td>金币数</td>
+		<td><input type="text" name="golds" id="golds" value="{$edit.gold}"/></td>
+	</tr>
+	<tr>
+		<td>兑换简写</td>
+		<td><input type="text" name="tag" id="tag" value="{$edit.tag}"/></td>
+	</tr>
+	<if condition="$test.id gt 0">
+	<tr>
+		<td>兑换商品</td>
+		<td> <input type="text" name="shop" id="shop" value="{$edit.convert_goods}"/></td>
+	</tr>
+	<else />
+	<tr>
+		<td>备注信息</td>
+		<td><textarea rows="10" cols="30" name="content" id="content">{$edit.remarks}</textarea></td>
+	</tr>
+	</if>
+	<input type="submit" value="添加" name="">
+  </table>
+</form>
+</div>
+
+
+</body>
+</html>
+    <script type="text/javascript">
+		$('#content').blur(function(){
+		var con = $(this).val();
+		if(con==''){
+			alert('内容不能 为空');
+		}
+		
+		})
+
+
+
+	$('#myform').submit(function(){
+    	var $username = $('#username').val();
+    	var $golds = $('#golds').val();
+    	var $shop = $('#shop').val();
+    	var $content = $('#content').val();
+    	if($username==""||$golds==""||$shop==""||$content==""){
+    		alert('数据有误！！');
+    		return false;
+    	}
+
+    });
+
+
+
+	</script>
